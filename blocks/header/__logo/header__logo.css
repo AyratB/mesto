@@ -1,0 +1,38 @@
+.header__logo{
+    height: 33px;
+    width: 142px;
+    background-image: url("../../../images/header_logo_white.png");
+    background-size: contain;
+}
+
+@media screen and (max-width: 1279px){
+    .header__logo{
+        height: 30px;
+        width: 134px;
+        position: relative;
+    }
+}
+
+@media screen and (max-width: 1023px){
+    .header__logo{
+        height: 28px;
+        width: 124px;
+        left: 5px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .header__logo{
+        height: 26px;
+        width: 114px;
+        left: 15px;
+    }
+}
+
+@media screen and (max-width: 424px){
+    .header__logo{
+        height: 24px;
+        width: 104px;
+        left: 27px;
+    }
+}

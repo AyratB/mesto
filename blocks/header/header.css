@@ -1,0 +1,35 @@
+.header{
+    margin-top: 45px;
+    width: 100%;
+    height: 74px;
+    border-bottom: 1px solid #545454;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 1279px){
+    .header{
+        margin-top: 40px;
+        height: 70px;
+    }
+}
+
+@media screen and (max-width: 1023px){
+    .header{
+        margin-top: 35px;
+        height: 66px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .header{
+        margin-top: 32px;
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 424px){
+    .header{
+        margin-top: 28px;
+        height: 56px;
+    }
+}
