@@ -1,0 +1,12 @@
+.elements__heart{
+    width: 22px;
+    height: 19px;
+    background-image: url("./../../../images/heart_disabled.png");
+    background-size: contain;
+    transition: 0.5s;
+}
+
+.elements__heart:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}

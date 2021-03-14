@@ -20,6 +20,13 @@
 @import url(../blocks/profile/__add-image/profile__add-image.css);
 
 @import url(../blocks/elements/elements.css);
+@import url(../blocks/elements/__list/elements__list.css);
+@import url(../blocks/elements/__item/elements__item.css);
+@import url(../blocks/elements/__image/elements__image.css);
+@import url(../blocks/elements/__sign/elements__sign.css);
+@import url(../blocks/elements/__description/elements__description.css);
+@import url(../blocks/elements/__heart/elements__heart.css);
+
 @import url(../blocks/footer/footer.css);
 
 @import url(../blocks/page/__container/page__container.css);
