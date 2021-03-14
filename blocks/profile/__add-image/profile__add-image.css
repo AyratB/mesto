@@ -1,0 +1,6 @@
+.profile__add-image{
+    width: 22px;
+    height: 22px;
+    background-image: url("./../../../images/add-image.png");
+    background-size: contain;
+}

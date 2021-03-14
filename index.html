@@ -8,15 +8,30 @@
         <title>Сервис MESTO</title>
         <link rel="stylesheet" href="./pages/index.css">
     </head>
-
     <body>
         <div class="page">
-            <div class="container">
-                <header class="header">
+            <div class="page__container">
+                <header class="header page__container-item">
                     <div class="header__logo"></div>
                 </header>
-                <div class="profile"></div>
-                <div class="elements"></div>
+                <main class="main page__container-item page__container_stretch_narrow">
+                    <section class="profile">
+                        <div class="profile__avatar-container">
+                            <img class="profile__avatar" src="./images/kusto.jpg" alt="Фото Кусто"></img> 
+                            <div class="profile__info">
+                                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                                <div class="profile__edit-button">
+                                    <div class="profile__pencil-image"></div>
+                                </div>
+                                <p class="profile__description">Исследователь океана</p>                            
+                            </div>
+                        </div>                        
+                        <div class="profile__add-button">
+                            <div class="profile__add-image"></div>
+                        </div>
+                    </section>
+                    <section class="elements"></section>
+                </main>                
                 <footer class="footer"></footer>
             </div>
         </div>

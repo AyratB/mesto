@@ -1,9 +1,8 @@
 .page{
     margin: 0 auto;
-    display: flex;    
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    max-width: 1280px;
+    display: flex;
+    justify-content: center;    
     background-color: #000000;
     font-family: 'Inter', Arial, sans-serif;
     -moz-osx-font-smoothing: grayscale;
@@ -11,6 +10,5 @@
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    max-width: 1280px;
+    text-rendering: optimizeLegibility;    
 }
