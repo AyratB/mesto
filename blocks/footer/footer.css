@@ -1,0 +1,34 @@
+.footer{
+    width: 100%;
+    color: #545454;
+    margin-top: 67px;
+    margin-bottom: 60px;
+}
+
+@media screen and (max-width: 1279px){
+    .footer{
+        margin-top: 62px;
+        margin-bottom: 54px;
+    }
+}
+
+@media screen and (max-width: 1023px){
+    .footer{
+        margin-top: 56px;
+        margin-bottom: 48px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .footer{
+        margin-top: 50px;
+        margin-bottom: 42px;
+    }
+}
+
+@media screen and (max-width: 424px){
+    .footer{
+        margin-top: 48px;
+        margin-bottom: 36px;
+    }
+}
