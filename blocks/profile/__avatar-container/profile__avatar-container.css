@@ -8,6 +8,5 @@
      .profile__avatar-container{
          flex-direction: column;
          gap: 26px;
-         width: 100%;
      }
  }

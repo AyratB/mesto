@@ -1,0 +1,46 @@
+.popup__close{
+    background-image: url("./../../../images/Close Icon.png");
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -85px;
+    right: -85px;
+}
+
+.popup__close{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1279px){
+    .popup__close{
+        width: 36px;
+        height: 36px;
+        right: -75px;
+    }
+}
+
+@media screen and (max-width: 1023px){
+    .popup__close{
+        width: 32px;
+        height: 32px;
+        right: -65px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .popup__close{
+        width: 28px;
+        height: 28px;
+        right: -55px;
+    }
+}
+
+@media screen and (max-width: 424px){
+    .popup__close{
+        width: 26px;
+        height: 26px;
+        top: -85px;
+        right: -25px;
+    }
+}

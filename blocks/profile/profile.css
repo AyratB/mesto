@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 40px;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 @media screen and (max-width: 1023px){

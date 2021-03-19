@@ -3,6 +3,7 @@
     height: 74px;
     border-bottom: 1px solid #545454;
     box-sizing: border-box;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 @media screen and (max-width: 1279px){

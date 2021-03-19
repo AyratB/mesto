@@ -1,15 +1,15 @@
-.page__container_stretch_narrow{
+.page__container-item_stretch_narrow{
     width: 100%;
 }
 
 @media screen and (max-width: 767px){
-    .page__container_stretch_narrow{
+    .page__container-item_stretch_narrow{
         width: calc(100% - 2*15px);
     }
 }
 
 @media screen and (max-width: 424px){
-    .page__container_stretch_narrow{
+    .page__container-item_stretch_narrow{
         width: calc(100% - 2*19px);
     }
 }

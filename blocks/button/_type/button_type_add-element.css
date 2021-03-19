@@ -1,43 +1,36 @@
-.profile__add-button{
+.button_type_add-element{
     width: 150px;
     height: 50px;
     border: 2px solid #FFFFFF;
-    box-sizing: border-box;
     border-radius: 2px;
-    justify-self: end;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.5s;
 }
 
-.profile__add-button:hover{
-    cursor: pointer;
+.button_type_add-element:hover{
     opacity: 0.6;
 }
 
 @media screen and (max-width:1023px){
-    .profile__add-button{
+    .button_type_add-element{
         width: 50%;
         margin-top: 10px;
     }
 }
 
 @media screen and (max-width: 767px){
-    .profile__add-button{
+    .button_type_add-element{
         width: 100%;
         margin-top: 18px;
     }
 }
 
 @media screen and (max-width: 424px){
-    .profile__add-button{
+    .button_type_add-element{
         margin-top: 24px;
     }
 }
 
 @media screen and (max-width: 424px){
-    .profile__add-button{
+    .button_type_add-element{
         margin-top: 36px;
     }
 }
