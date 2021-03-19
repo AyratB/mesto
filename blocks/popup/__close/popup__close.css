@@ -8,7 +8,7 @@
     right: -85px;
 }
 
-.popup__close{
+.popup__close:hover{
     cursor: pointer;
 }
 
