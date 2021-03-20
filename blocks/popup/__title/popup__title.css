@@ -2,13 +2,18 @@
     font-weight: 900;
     font-size: 24px;
     line-height: 29px;
-    align-self: flex-start;
+    margin: 0;
+    margin-top: 34px;
+    margin-bottom: 45px;
+    width: calc(100% - 2*36px);
 }
 
 @media screen and (max-width: 1279px){
     .popup__title{
         font-size: 23px;
         line-height: 27px;
+        margin-top: 31px;
+        width: calc(100% - 2*32px);
     }
 }
 
@@ -16,6 +21,9 @@
     .popup__title{
         font-size: 22px;
         line-height: 25px;
+        margin-top: 29px;
+        margin-bottom: 45px;
+        width: calc(100% - 2*28px);
     }
 }
 
@@ -23,6 +31,9 @@
     .popup__title{
         font-size: 20px;
         line-height: 23px;
+        margin-top: 27px;
+        margin-bottom: 55px;
+        width: calc(100% - 2*24px);
     }
 }
 
@@ -30,5 +41,8 @@
     .popup__title{
         font-size: 18px;
         line-height: 22px;
+        margin-top: 25px;
+        margin-bottom: 70px;
+        width: calc(100% - 2*22px);
     }
 }

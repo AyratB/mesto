@@ -4,6 +4,10 @@ let popupDescription = document.querySelector('#popup-description');
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
 
+function closePopup(){
+    formElement.classList.remove('popup_opened');
+}
+
 function formSubmitHandler (evt) {
     evt.preventDefault();
 
@@ -21,10 +25,6 @@ function openPopup(){
     popupDescription.value = profileDescription.textContent;
 
     formElement.classList.add('popup_opened');
-}
-  
-function closePopup(){
-    formElement.classList.remove('popup_opened');
 }
 
 let profileEditButton = document.querySelector('.button_type_edit-profile');

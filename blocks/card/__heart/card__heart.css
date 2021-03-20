@@ -1,0 +1,16 @@
+.card__heart{
+    width: 22px;
+    height: 19px;
+    background-image: url("./../../../images/heart_disabled.svg");
+    background-size: contain;
+    transition: 0.5s;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: white;
+    outline: none;
+}
+
+.card__heart:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}

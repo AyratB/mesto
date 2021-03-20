@@ -12,88 +12,84 @@
         <div class="page">
             <div class="page__container">
                 <header class="header page__container-item">
-                    <div class="header__logo"></div>
+                    <a class="header__link" href="#" target="_self"><img src="../../../images/header_logo_white.svg" alt="Лого" class="header__logo"></a>
                 </header>
                 <main class="main page__container-item page__container-item_stretch_narrow">
                     <section class="profile">
                         <div class="profile__avatar-container">
-                            <img class="profile__avatar" src="./images/kusto.jpg" alt="Фото Кусто">                            
+                            <img class="profile__avatar" src="./images/kusto.jpg" alt="Аватар пользователя">
                             <div class="profile__info">
                                 <h1 class="profile__name">Жак-Ив Кусто</h1>
-                                <div class="button button_type_edit-profile">
-                                    <div class="profile__pencil-image"></div>
-                                </div>                                
+                                <button class="button button_type_edit-profile" aria-label="Кнопка редактирования профиля"></button>
                                 <p class="profile__description">Исследователь океана</p>
                             </div>
                         </div>
-                        <div class="button button_type_add-element">
-                            <div class="profile__add-image"></div>
-                        </div> 
+                        <button class="button button_type_add-element" aria-label="Кнопка добавления элемента"></button> 
                     </section>
-                    <section class="elements">
-                        <ul class="elements__list">
-                            <li class="elements__item">
-                                <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="elements__image">
-                                <div class="elements__sign">
-                                    <p class="elements__description">Карачаевск</p>
-                                    <div class="elements__heart"></div>
+                    <section class="cards">
+                        <ul class="cards__list">
+                            <li class="card">
+                                <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
+                                <div class="card__sign">
+                                    <h2 class="card__description">Карачаевск</h2>
+                                    <button class="card__heart"></button>
                                 </div>
                             </li>
-                            <li class="elements__item">
-                                <img src="./images/Elbrus.png" alt="Эльбрус" class="elements__image">
-                                <div class="elements__sign">
-                                    <p class="elements__description">Гора Эльбрус</p>
-                                    <div class="elements__heart"></div>
+                            <li class="card">
+                                <img src="./images/Elbrus.png" alt="Эльбрус" class="card__image">
+                                <div class="card__sign">
+                                    <h2 class="card__description">Гора Эльбрус</h2>
+                                    <button class="card__heart"></button>
                                 </div>
                             </li>
-                            <li class="elements__item">
-                                <img src="./images/Dombay.png" alt="Домбай" class="elements__image">
-                                <div class="elements__sign">
-                                    <p class="elements__description">Домбай</p>
-                                    <div class="elements__heart"></div>
+                            <li class="card">
+                                <img src="./images/Dombay.png" alt="Домбай" class="card__image">
+                                <div class="card__sign">
+                                    <h2 class="card__description">Домбай</h2>
+                                    <button class="card__heart"></button>
                                 </div>
                             </li>
-                            <li class="elements__item">
-                                <img src="./images/Elbrus.png" alt="Эльбрус" class="elements__image">
-                                <div class="elements__sign">
-                                    <p class="elements__description">Гора Эльбрус</p>
-                                    <div class="elements__heart"></div>
+                            <li class="card">
+                                <img src="./images/Elbrus.png" alt="Эльбрус" class="card__image">
+                                <div class="card__sign">
+                                    <h2 class="card__description">Гора Эльбрус</h2>
+                                    <button class="card__heart"></button>
                                 </div>
                             </li>
-                            <li class="elements__item">
-                                <img src="./images/Dombay.png" alt="Домбай" class="elements__image">
-                                <div class="elements__sign">
-                                    <p class="elements__description">Домбай</p>
-                                    <div class="elements__heart"></div>
+                            <li class="card">
+                                <img src="./images/Dombay.png" alt="Домбай" class="card__image">
+                                <div class="card__sign">
+                                    <h2 class="card__description">Домбай</h2>
+                                    <button class="card__heart"></button>
                                 </div>
                             </li>
-                            <li class="elements__item">
-                                <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="elements__image">
-                                <div class="elements__sign">
-                                    <p class="elements__description">Карачаево-Черкессия</p>
-                                    <div class="elements__heart"></div>
+                            <li class="card">
+                                <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
+                                <div class="card__sign">
+                                    <h2 class="card__description">Карачаево-Черкессия</h2>
+                                    <button class="card__heart"></button>
                                 </div>
                             </li>
                         </ul>
                     </section>
                 </main>
                 <footer class="footer page__container-item page__container-item_stretch_narrow">
-                    <div class="footer__copyright">© 2020 Mesto Russia</div>
+                    <p class="footer__copyright">© 2020 Mesto Russia</p>
                 </footer>
             </div>
-            <form class="popup">
+            <article class="popup">
                 <div class="popup__overlay">
                 </div>
                 <div class="popup__container">
-                    <div class="popup__form">
-                        <div class="popup__title">Редактировать профиль</div>
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <form class="popup__form">
                         <input type="text" class="popup__input" id="popup-name">
                         <input type="text" class="popup__input" id="popup-description">
-                        <input type="submit" class="button button_type_save-popup" value="Сохранить">
-                        <div class="popup__close"></div>
-                    </div>
-                </div>       
-            </form>
+                        <button type="submit" class="button button_type_save-popup">Сохранить</button>
+                    </form>
+                    <button class="popup__close">+</button>
+                </div>
+            </article>
         </div>
         <script src="./scripts/index.js"></script>
     </body>

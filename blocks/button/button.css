@@ -4,6 +4,7 @@
     align-items: center;
     box-sizing: border-box;
     transition: 0.5s;
+    padding: 0;
 }
 
 .button:hover{

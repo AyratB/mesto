@@ -1,33 +1,27 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts/fonts.css);
-
 @import url(../blocks/page/page.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
-
+@import url(../blocks/header/__link/header__link.css);
 @import url(../blocks/main/main.css);
-
 @import url(../blocks/button/button.css);
 @import url(../blocks/button/_type/button_type_edit-profile.css);
 @import url(../blocks/button/_type/button_type_add-element.css);
 @import url(../blocks/button/_type/button_type_save-popup.css);
-
-
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__description/profile__description.css);
 @import url(../blocks/profile/__avatar-container/profile__avatar-container.css);
-@import url(../blocks/profile/__pencil-image/profile__pencil-image.css);
-@import url(../blocks/profile/__add-image/profile__add-image.css);
-@import url(../blocks/elements/elements.css);
-@import url(../blocks/elements/__list/elements__list.css);
-@import url(../blocks/elements/__item/elements__item.css);
-@import url(../blocks/elements/__image/elements__image.css);
-@import url(../blocks/elements/__sign/elements__sign.css);
-@import url(../blocks/elements/__description/elements__description.css);
-@import url(../blocks/elements/__heart/elements__heart.css);
+@import url(../blocks/cards/cards.css);
+@import url(../blocks/cards/__list/cards__list.css);
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__description/card__description.css);
+@import url(../blocks/card/__image/card__image.css);
+@import url(../blocks/card/__heart/card__heart.css);
+@import url(../blocks/card/__sign/card__sign.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/page/__container/page__container.css);

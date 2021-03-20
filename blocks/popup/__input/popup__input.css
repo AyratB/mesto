@@ -1,5 +1,4 @@
 .popup__input{
-    margin-top: 30px;
     width: 100%;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -12,5 +11,5 @@
 }
 
 .popup__input:first-of-type{
-    margin-top: 41px;
+    margin-bottom: 28px;
 }

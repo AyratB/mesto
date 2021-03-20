@@ -1,16 +1,40 @@
 .button_type_edit-profile{
     width: 24px;
     height: 24px;
-    border: 1px solid #FFFFFF;    
+    border: 1px solid #FFFFFF;
+    background-color: black;
+    background-image: url("./../../../images/edit-pencil.svg");
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.button_type_edit-profile:hover{    
+.button_type_edit-profile:hover{
     opacity: 0.6;
+}
+
+@media screen and (max-width: 1279px){
+    .button_type_edit-profile{        
+        background-size: 9px 9px;
+    }
+}
+
+@media screen and (max-width: 1023px){
+    .button_type_edit-profile{
+        background-size: 9px 9px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .button_type_edit-profile{
+        background-size: 9px 9px;
+    }
 }
 
 @media screen and (max-width: 424px){
     .button_type_edit-profile{
         width: 18px;
         height: 18px;
+        background-size: 5px 5px;
     }
 }

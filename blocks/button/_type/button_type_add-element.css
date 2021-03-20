@@ -3,6 +3,12 @@
     height: 50px;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
+    background-color: black;
+    background-image: url("./../../../images/add-image.svg");
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    background-position: center;
+    outline: none;
 }
 
 .button_type_add-element:hover{
