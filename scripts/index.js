@@ -30,7 +30,7 @@ function openPopup(){
 let profileEditButton = document.querySelector('.button_type_edit-profile');
 profileEditButton.addEventListener('click', openPopup);
 
-let closePopupButton = document.querySelector('.popup__close');
+let closePopupButton = document.querySelector('.button_type_close-popup');
 closePopupButton.addEventListener('click', closePopup);
 
 let popupOverlay = document.querySelector('.popup__overlay');

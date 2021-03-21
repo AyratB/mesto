@@ -32,42 +32,42 @@
                                 <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
                                 <div class="card__sign">
                                     <h2 class="card__description">Карачаевск</h2>
-                                    <button class="card__heart"></button>
+                                    <button class="card__heart" aria-label="Иконка лайка"></button>
                                 </div>
                             </li>
                             <li class="card">
                                 <img src="./images/Elbrus.png" alt="Эльбрус" class="card__image">
                                 <div class="card__sign">
                                     <h2 class="card__description">Гора Эльбрус</h2>
-                                    <button class="card__heart"></button>
+                                    <button class="card__heart" aria-label="Иконка лайка"></button>
                                 </div>
                             </li>
                             <li class="card">
                                 <img src="./images/Dombay.png" alt="Домбай" class="card__image">
                                 <div class="card__sign">
                                     <h2 class="card__description">Домбай</h2>
-                                    <button class="card__heart"></button>
+                                    <button class="card__heart" aria-label="Иконка лайка"></button>
                                 </div>
                             </li>
                             <li class="card">
                                 <img src="./images/Elbrus.png" alt="Эльбрус" class="card__image">
                                 <div class="card__sign">
                                     <h2 class="card__description">Гора Эльбрус</h2>
-                                    <button class="card__heart"></button>
+                                    <button class="card__heart" aria-label="Иконка лайка"></button>
                                 </div>
                             </li>
                             <li class="card">
                                 <img src="./images/Dombay.png" alt="Домбай" class="card__image">
                                 <div class="card__sign">
                                     <h2 class="card__description">Домбай</h2>
-                                    <button class="card__heart"></button>
+                                    <button class="card__heart" aria-label="Иконка лайка"></button>
                                 </div>
                             </li>
                             <li class="card">
                                 <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
                                 <div class="card__sign">
                                     <h2 class="card__description">Карачаево-Черкессия</h2>
-                                    <button class="card__heart"></button>
+                                    <button class="card__heart" aria-label="Иконка лайка"></button>
                                 </div>
                             </li>
                         </ul>
@@ -82,12 +82,12 @@
                 </div>
                 <div class="popup__container">
                     <h2 class="popup__title">Редактировать профиль</h2>
-                    <form class="popup__form">
-                        <input type="text" class="popup__input" id="popup-name">
-                        <input type="text" class="popup__input" id="popup-description">
+                    <form class="popup__form" name="popupForm">
+                        <input type="text" class="popup__input" id="popup-name" name="popupName">
+                        <input type="text" class="popup__input" id="popup-description" name="popupDescription">
                         <button type="submit" class="button button_type_save-popup">Сохранить</button>
                     </form>
-                    <button class="popup__close">+</button>
+                    <button class="button button_type_close-popup" aria-label="Кнопка закрытия формы редактирования"></button>
                 </div>
             </article>
         </div>

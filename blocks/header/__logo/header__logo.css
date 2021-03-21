@@ -2,6 +2,11 @@
     height: 33px;
     width: 142px;
     object-fit: contain;
+    transition: 0.5s;
+}
+
+.header__logo:hover{
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 1279px){
