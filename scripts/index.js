@@ -45,6 +45,8 @@ const createCard = function(cardData){
 //инициализация блока с карточками   
 initialCards.forEach(item => cardList.append(createCard(item)));
 
+setAllHeartsHandler();
+
 //попапы
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
@@ -140,6 +142,23 @@ function addCard(popup){
   };
 
   cardList.prepend(createCard(card));
+
+  setAllHeartsHandler();
+}
+
+function setAllHeartsHandler(){
+  
+  const hearts = document.querySelectorAll('.card__heart');  
+
+  hearts.forEach(heartIcon => 
+    {
+      heartIcon.removeEventListener('click', changeClickStatus);
+      heartIcon.addEventListener('click', changeClickStatus);
+    });
+}
+
+function changeClickStatus(e){
+  e.target.classList.toggle('card__heart_active');
 }
 
 //проверка на валидность урлы
