@@ -10,6 +10,7 @@
 @import url(../blocks/button/_type/button_type_add-element.css);
 @import url(../blocks/button/_type/button_type_save-popup.css);
 @import url(../blocks/button/_type/button_type_close-popup.css);
+@import url(../blocks/button/_type/button_type_delete-card.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);

@@ -39,13 +39,31 @@ const createCard = function(cardData){
     const cardDescription = cardItem.querySelector('.card__description');
     cardDescription.textContent = cardData.name;
 
+    const likeIcon = cardItem.querySelector('.card__heart');
+    likeIcon.addEventListener('click', changeClickStatus);
+
+    const deleteIcon = cardItem.querySelector('.button_type_delete-card');
+    deleteIcon.addEventListener('click', () => cardItem.remove());
+
     return cardItem;
 }
 
 //инициализация блока с карточками   
 initialCards.forEach(item => cardList.append(createCard(item)));
 
-setAllHeartsHandler();
+//обработка кнопок на списке
+// const cardsList = document.querySelector('.cards__list');
+// cardsList.addEventListener('click', e => {
+  
+//   let currentButton = e.target;
+
+//   if(currentButton.classList.contains('card__heart')){
+//     currentButton.classList.toggle('card__heart_active');
+//   }
+//   else if(currentButton.classList.contains('button_type_delete-card')){
+//     currentButton.closest('.card').remove();
+//   }
+// });
 
 //попапы
 let profileName = document.querySelector('.profile__name');
@@ -142,19 +160,6 @@ function addCard(popup){
   };
 
   cardList.prepend(createCard(card));
-
-  setAllHeartsHandler();
-}
-
-function setAllHeartsHandler(){
-  
-  const hearts = document.querySelectorAll('.card__heart');  
-
-  hearts.forEach(heartIcon => 
-    {
-      heartIcon.removeEventListener('click', changeClickStatus);
-      heartIcon.addEventListener('click', changeClickStatus);
-    });
 }
 
 function changeClickStatus(e){
