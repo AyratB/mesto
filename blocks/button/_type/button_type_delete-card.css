@@ -10,3 +10,7 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.button_type_delete-card:hover{
+    opacity: 0.6;
+}
