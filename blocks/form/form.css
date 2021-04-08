@@ -1,4 +1,4 @@
-.popup__form{
+.form{
     width: calc(100% - 2*36px);
     display: flex;
     flex-direction: column;
@@ -7,25 +7,25 @@
 }
 
 @media screen and (max-width: 1279px){
-    .popup__form{
+    .form{
         width: calc(100% - 2*32px);
     }
 }
 
 @media screen and (max-width: 1023px){
-    .popup__form{
+    .form{
         width: calc(100% - 2*28px);
     }
 }
 
 @media screen and (max-width: 767px){
-    .popup__form{
+    .form{
         width: calc(100% - 2*24px);
     }
 }
 
 @media screen and (max-width: 424px){
-    .popup__form{
+    .form{
         width: calc(100% - 2*22px);
     }
 }

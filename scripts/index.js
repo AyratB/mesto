@@ -10,6 +10,8 @@ let figureImage = popupZoom.querySelector('.figure__image');
 let figureCaption = popupZoom.querySelector('.figure__caption');
 
 const popupEditProfile = document.querySelector('.popup_type_profile');
+const editProfileInputName = popupEditProfile.querySelector('input[name="editProfileFormName"]');
+const editProfileInputDescription = popupEditProfile.querySelector('input[name="editProfileFormDescription');
 const popupEditProfileCloseButton = popupEditProfile.querySelector('.button_type_close-popup');
 const popupEditProfileOverlay = popupEditProfile.querySelector('.popup__overlay');
 const popupEditProfileEditButton = document.querySelector('.button_type_edit-profile');
@@ -18,6 +20,10 @@ const popupAddCart = document.querySelector('.popup_type_card');
 const addCardButton = document.querySelector('.button_type_add-element');
 const popupAddCartCloseButton = popupAddCart.querySelector('.button_type_close-popup');
 const popupAddCartOverlay = popupAddCart.querySelector('.popup__overlay');
+
+//формы
+const editProfileForm = document.forms.editProfile;
+const addCardForm = document.forms.addCard;
 
 function createCard(cardData){
   
@@ -47,25 +53,21 @@ const renderCard = (data, wrap) => wrap.prepend(createCard(data));
 function handleEditProfile (evt) {
   evt.preventDefault();
 
-  saveProfile(this);
-  closePopup(this);
+  saveProfile();
+  closePopup(popupEditProfile);
 }
 
-function saveProfile(popup){
-
-  const popupName = popup.querySelector('.popup__input_type_name');
-  const popupDescription = popup.querySelector('.popup__input_type_description');
-
-  profileName.textContent = popupName.value;
-  profileDescription.textContent = popupDescription.value;
+function saveProfile(){
+  profileName.textContent = editProfileInputName.value;
+  profileDescription.textContent = editProfileInputDescription.value;
 }
 
 function handleAddCard(evt) {
 
   evt.preventDefault();
 
-  addCard(this);
-  clearPopup(this);
+  addCard();
+  clearForm(addCardForm);
   closePopup(this);
 }
 
@@ -82,17 +84,12 @@ function prepareZoomPopup(dataCard){
   figureCaption.textContent = dataCard.name;
 }
 
-const clearPopup = popup => popup.querySelector('.popup__form').reset();
+const clearForm = form => form.reset();
 
-function addCard(popup){
+function addCard(){
 
-  const cardName = popup.querySelector('.popup__input_type_name').value;
-  const cardUrl = popup.querySelector('.popup__input_type_description').value;
-
-  if(cardUrl === '' || !isValidUrl(cardUrl)){
-    alert('Введите корректный http-адрес!');
-    return;
-  }
+  const cardName = addCardForm.querySelector('input[name="addCardFormName"]').value;
+  const cardUrl = addCardForm.querySelector('input[name="addCardFormUrl"]').value;
 
   const card = {
     name: cardName,
@@ -109,22 +106,18 @@ function changeClickStatus(){
 const openPopup = popup => popup.classList.add('popup_opened');
 const closePopup = (popup) => popup.classList.remove('popup_opened');
 
-//проверка на валидность урлы
-const isValidUrl = url => /(^https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i.test(url);
-
-function preparePopup(popup, mainInputValue, descriptionInputValue){
-  popup.querySelector('.popup__input_type_name').value = mainInputValue;
-  popup.querySelector('.popup__input_type_description').value = descriptionInputValue;
+function preparePopup(mainInputValue, descriptionInputValue){
+  editProfileInputName.value = mainInputValue;
+  editProfileInputDescription.value = descriptionInputValue;
 }
 
 popupEditProfileEditButton.addEventListener('click', function(){
-  preparePopup(popupEditProfile, profileName.textContent, profileDescription.textContent);
+  preparePopup(profileName.textContent, profileDescription.textContent);
   openPopup(popupEditProfile);
 });
 
 popupEditProfileCloseButton.addEventListener('click', () => closePopup(popupEditProfile));
 popupEditProfileOverlay.addEventListener('click', () => closePopup(popupEditProfile));
-popupEditProfile.addEventListener('submit', handleEditProfile);
 
 addCardButton.addEventListener('click', () => openPopup(popupAddCart));
 

@@ -46,31 +46,43 @@
             </div>
             <article class="popup popup_type_profile">
                 <div class="popup__overlay"></div>
-                <div class="popup__container">
-                    <h2 class="popup__title">Редактировать профиль</h2>
-                    <form class="popup__form" name="popupForm">
-                        <input type="text" class="popup__input popup__input_type_name" name="popupName">
-                        <input type="text" class="popup__input popup__input_type_description" name="popupDescription">
-                        <button type="submit" class="button button_type_save-popup">Сохранить</button>
+                
+                <div class="form__container">
+
+                    <h2 class="form__title">Редактировать профиль</h2>
+
+                    <form class="form" name="editProfile" novalidate>
+                        <input type="text" class="form__input" name="editProfileFormName" required minlength="2" maxlength="40">
+                        <!-- <span class="form__input-error">Ошибка в поле Имя</span> -->
+                        <input type="text" class="form__input" name="editProfileFormDescription" required minlength="2" maxlength="200">
+                        <!-- <span class="form__input-error">Ошибка в поле Описание</span> -->
+                        <button type="submit" class="button button_type_save-form">Сохранить</button>
                     </form>
-                    <button type="button" class="button button_type_close-popup" aria-label="Кнопка закрытия формы редактирования"></button>
+
+                    <button type="button" class="button button_type_close-popup" aria-label="Кнопка закрытия попапа редактирования"></button>
                 </div>
             </article>
             <article class="popup popup_type_card">
                 <div class="popup__overlay"></div>
-                <div class="popup__container">
-                    <h2 class="popup__title">Новое место</h2>
-                    <form class="popup__form" name="popupForm">
-                        <input type="text" class="popup__input popup__input_type_name" name="popupName" placeholder="Название">
-                        <input type="text" class="popup__input popup__input_type_description" name="popupDescription" placeholder="Ссылка на картинку">
-                        <button type="submit" class="button button_type_save-popup">Создать</button>
+
+                <div class="form__container">
+
+                    <h2 class="form__title">Новое место</h2>
+
+                    <form class="form" name="addCard">
+                        <input type="text" class="form__input" name="addCardFormName" placeholder="Название">
+                        <input type="url" class="form__input" name="addCardFormUrl" placeholder="Ссылка на картинку">
+                        <button type="submit" class="button button_type_save-form">Создать</button>
                     </form>
-                    <button type="button" class="button button_type_close-popup" aria-label="Кнопка закрытия формы редактирования"></button>
+
+                    <button type="button" class="button button_type_close-popup" aria-label="Кнопка закрытия попапа добавления карточки"></button>
                 </div>
             </article>
+
+
             <article class="popup popup_type_image">
                 <div class="popup__overlay"></div>
-                <div class="popup__container popup__container_type_zoom">
+                <div class="figure__container">
                     <figure class="figure">
                         <img class="figure__image" src="#" alt="#">
                         <figcaption class="figure__caption"></figcaption>
@@ -81,5 +93,6 @@
         </div>
         <script src="./scripts/initial-cards.js"></script>
         <script src="./scripts/index.js"></script>
+        <script src="./scripts/validate.js"></script>
     </body>
 </html>
