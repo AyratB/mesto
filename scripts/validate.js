@@ -1,5 +1,15 @@
+const enableValidation = () => {};
+
+
+
+
 //валидация формы редактирования профиля
  //editProfileInputName, editProfileInputDescription
+
+
+
+
+
 
 const showInputError = element => element.classList.add('form__input_type_error');
 
@@ -15,4 +25,3 @@ const isValid = () => {
 
 editProfileInputName.addEventListener('input', isValid);
 
-editProfileForm.addEventListener('submit', handleEditProfile);

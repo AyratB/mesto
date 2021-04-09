@@ -52,10 +52,10 @@
                     <h2 class="form__title">Редактировать профиль</h2>
 
                     <form class="form" name="editProfile" novalidate>
-                        <input type="text" class="form__input" name="editProfileFormName" required minlength="2" maxlength="40">
-                        <!-- <span class="form__input-error">Ошибка в поле Имя</span> -->
-                        <input type="text" class="form__input" name="editProfileFormDescription" required minlength="2" maxlength="200">
-                        <!-- <span class="form__input-error">Ошибка в поле Описание</span> -->
+                        <input type="text" class="form__input" name="edit-profile-name" required minlength="2" maxlength="40">
+                        <span class="form__input-error"></span>
+                        <input type="text" class="form__input" name="edit-profile-description" required minlength="2" maxlength="200">
+                        <span class="form__input-error"></span>
                         <button type="submit" class="button button_type_save-form">Сохранить</button>
                     </form>
 
@@ -70,8 +70,8 @@
                     <h2 class="form__title">Новое место</h2>
 
                     <form class="form" name="addCard">
-                        <input type="text" class="form__input" name="addCardFormName" placeholder="Название">
-                        <input type="url" class="form__input" name="addCardFormUrl" placeholder="Ссылка на картинку">
+                        <input type="text" class="form__input" name="add-card-name" placeholder="Название">
+                        <input type="url" class="form__input" name="add-card-url" placeholder="Ссылка на картинку">
                         <button type="submit" class="button button_type_save-form">Создать</button>
                     </form>
 

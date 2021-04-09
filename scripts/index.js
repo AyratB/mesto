@@ -10,8 +10,8 @@ let figureImage = popupZoom.querySelector('.figure__image');
 let figureCaption = popupZoom.querySelector('.figure__caption');
 
 const popupEditProfile = document.querySelector('.popup_type_profile');
-const editProfileInputName = popupEditProfile.querySelector('input[name="editProfileFormName"]');
-const editProfileInputDescription = popupEditProfile.querySelector('input[name="editProfileFormDescription');
+const editProfileInputName = popupEditProfile.querySelector('input[name="edit-profile-name"]');
+const editProfileInputDescription = popupEditProfile.querySelector('input[name="edit-profile-description');
 const popupEditProfileCloseButton = popupEditProfile.querySelector('.button_type_close-popup');
 const popupEditProfileOverlay = popupEditProfile.querySelector('.popup__overlay');
 const popupEditProfileEditButton = document.querySelector('.button_type_edit-profile');
@@ -62,6 +62,8 @@ function saveProfile(){
   profileDescription.textContent = editProfileInputDescription.value;
 }
 
+editProfileForm.addEventListener('submit', handleEditProfile);
+
 function handleAddCard(evt) {
 
   evt.preventDefault();
@@ -88,8 +90,8 @@ const clearForm = form => form.reset();
 
 function addCard(){
 
-  const cardName = addCardForm.querySelector('input[name="addCardFormName"]').value;
-  const cardUrl = addCardForm.querySelector('input[name="addCardFormUrl"]').value;
+  const cardName = addCardForm.querySelector('input[name="add-card-name"]').value;
+  const cardUrl = addCardForm.querySelector('input[name="add-card-url"]').value;
 
   const card = {
     name: cardName,
