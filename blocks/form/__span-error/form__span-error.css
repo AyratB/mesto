@@ -1,0 +1,11 @@
+.form__span-error{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
+    position: absolute;
+    opacity: 0;
+    top: calc(100% + 5px);
+    left: 0;
+    transition: opacity 0.3s;
+}

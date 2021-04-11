@@ -11,6 +11,7 @@
 @import url(../blocks/button/_type/button_type_save-form.css);
 @import url(../blocks/button/_type/button_type_close-popup.css);
 @import url(../blocks/button/_type/button_type_delete-card.css);
+@import url(../blocks/button/_inactive/button_inactive.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);
@@ -42,3 +43,6 @@
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__container/form__container.css);
 @import url(../blocks/form/__input/_type/form__input_type_error.css);
+@import url(../blocks/form/__span-error/form__span-error.css);
+@import url(../blocks/form/__span-error/_active/form__span-error_active.css);
+@import url(../blocks/form/__section/form__section.css);

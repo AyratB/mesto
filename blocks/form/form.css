@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+    gap: 35px;
 }
 
 @media screen and (max-width: 1279px){

@@ -105,8 +105,17 @@ function changeClickStatus(){
   this.classList.toggle('card__heart_active');
 }
 
-const openPopup = popup => popup.classList.add('popup_opened');
-const closePopup = (popup) => popup.classList.remove('popup_opened');
+const openPopup = popup => {
+  popup.classList.add('popup_opened');
+  
+}
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+
+  const form = popup.querySelector('.form');
+  if(form)
+    clearAllErrors(form);
+}
 
 function preparePopup(mainInputValue, descriptionInputValue){
   editProfileInputName.value = mainInputValue;

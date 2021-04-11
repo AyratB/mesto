@@ -46,19 +46,19 @@
             </div>
             <article class="popup popup_type_profile">
                 <div class="popup__overlay"></div>
-                
                 <div class="form__container">
-
                     <h2 class="form__title">Редактировать профиль</h2>
-
                     <form class="form" name="editProfile" novalidate>
-                        <input type="text" class="form__input" name="edit-profile-name" required minlength="2" maxlength="40">
-                        <span class="form__input-error"></span>
-                        <input type="text" class="form__input" name="edit-profile-description" required minlength="2" maxlength="200">
-                        <span class="form__input-error"></span>
+                        <section class="form__section">
+                            <input type="text" class="form__input" name="edit-profile-name" id="edit-profile-name" required minlength="2" maxlength="40">
+                            <span class="form__span-error" id="edit-profile-name-error"></span>
+                        </section>
+                        <section class="form__section">
+                            <input type="text" class="form__input" name="edit-profile-description" id="edit-profile-description" required minlength="2" maxlength="200">
+                            <span class="form__span-error" id="edit-profile-description-error"></span>
+                        </section>                        
                         <button type="submit" class="button button_type_save-form">Сохранить</button>
                     </form>
-
                     <button type="button" class="button button_type_close-popup" aria-label="Кнопка закрытия попапа редактирования"></button>
                 </div>
             </article>
@@ -70,8 +70,10 @@
                     <h2 class="form__title">Новое место</h2>
 
                     <form class="form" name="addCard">
-                        <input type="text" class="form__input" name="add-card-name" placeholder="Название">
-                        <input type="url" class="form__input" name="add-card-url" placeholder="Ссылка на картинку">
+                        <input type="text" class="form__input" name="add-card-name" id="add-card-name" placeholder="Название">
+                        <span class="form__span-error" id="add-card-name-error"></span>
+                        <input type="url" class="form__input" name="add-card-url" id="add-card-url" placeholder="Ссылка на картинку">
+                        <span class="form__input-error" id="add-card-url-error"></span>
                         <button type="submit" class="button button_type_save-form">Создать</button>
                     </form>
 
