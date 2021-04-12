@@ -108,13 +108,28 @@ function changeClickStatus(){
 const openPopup = popup => {
   popup.classList.add('popup_opened');
   
+  function escapeCloseHandler(e) {
+    if (e.key === 'Escape') {
+      closePopup(popup);
+      window.removeEventListener('keyup', escapeCloseHandler); 
+    }
+  }
+
+  window.addEventListener('keyup', escapeCloseHandler);
+
+  //инициация события для заполненной изначально формы
+  const inputList = Array.from(popup.querySelectorAll('.form__input'));
+
+  if(popup.classList.contains('popup_type_profile') && inputList.length > 0)
+    inputList[0].dispatchEvent(new Event("input"));
 }
+
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
 
   const form = popup.querySelector('.form');
   if(form)
-    clearAllErrors(form);
+    clearAllErrors(form, '.form__input', 'form__input_type_error', 'form__span-error_active');
 }
 
 function preparePopup(mainInputValue, descriptionInputValue){
