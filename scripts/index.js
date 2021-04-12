@@ -5,7 +5,6 @@ const profileDescription = document.querySelector('.profile__description');
 
 const popupZoom = document.querySelector('.popup_type_image');
 const popupZoomCloseButton = popupZoom.querySelector('.button_type_close-popup');
-const popupZoomOvewrlay = popupZoom.querySelector('.popup__overlay');
 let figureImage = popupZoom.querySelector('.figure__image');
 let figureCaption = popupZoom.querySelector('.figure__caption');
 
@@ -13,13 +12,11 @@ const popupEditProfile = document.querySelector('.popup_type_profile');
 const editProfileInputName = popupEditProfile.querySelector('input[name="edit-profile-name"]');
 const editProfileInputDescription = popupEditProfile.querySelector('input[name="edit-profile-description');
 const popupEditProfileCloseButton = popupEditProfile.querySelector('.button_type_close-popup');
-const popupEditProfileOverlay = popupEditProfile.querySelector('.popup__overlay');
 const popupEditProfileEditButton = document.querySelector('.button_type_edit-profile');
 
 const popupAddCart = document.querySelector('.popup_type_card');
 const addCardButton = document.querySelector('.button_type_add-element');
 const popupAddCartCloseButton = popupAddCart.querySelector('.button_type_close-popup');
-const popupAddCartOverlay = popupAddCart.querySelector('.popup__overlay');
 
 //формы
 const editProfileForm = document.forms.editProfile;
@@ -115,6 +112,9 @@ const openPopup = popup => {
     }
   }
 
+  //добавление закрытия по Esc
+  popup.querySelector('.popup__overlay').addEventListener('click', () => closePopup(popup));
+
   window.addEventListener('keyup', escapeCloseHandler);
 
   //инициация события для заполненной изначально формы
@@ -126,6 +126,9 @@ const openPopup = popup => {
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+
+  //добавление закрытия по Esc
+  popup.querySelector('.popup__overlay').removeEventListener('click', () => closePopup(popup));
 
   const form = popup.querySelector('.form');
   if(form)
@@ -143,16 +146,13 @@ popupEditProfileEditButton.addEventListener('click', function(){
 });
 
 popupEditProfileCloseButton.addEventListener('click', () => closePopup(popupEditProfile));
-popupEditProfileOverlay.addEventListener('click', () => closePopup(popupEditProfile));
 
 addCardButton.addEventListener('click', () => openPopup(popupAddCart));
 
 popupAddCartCloseButton.addEventListener('click', () => closePopup(popupAddCart));
-popupAddCartOverlay.addEventListener('click', () => closePopup(popupAddCart));
 popupAddCart.addEventListener('submit', handleAddCard); 
 
 popupZoomCloseButton.addEventListener('click', () => closePopup(popupZoom));
-popupZoomOvewrlay.addEventListener('click', () => closePopup(popupZoom));
 
 //инициализация блока с карточками
 initialCards.forEach(item => renderCard(item, cards));
