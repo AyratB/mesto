@@ -1,4 +1,4 @@
-.form__title{
+.popup__title{
     font-weight: 900;
     font-size: 24px;
     line-height: 29px;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 1279px){
-    .form__title{
+    .popup__title{
         font-size: 23px;
         line-height: 27px;
         margin-top: 31px;
@@ -18,7 +18,7 @@
 }
 
 @media screen and (max-width: 1023px){
-    .form__title{
+    .popup__title{
         font-size: 22px;
         line-height: 25px;
         margin-top: 29px;
@@ -28,7 +28,7 @@
 }
 
 @media screen and (max-width: 767px){
-    .form__title{
+    .popup__title{
         font-size: 20px;
         line-height: 23px;
         margin-top: 27px;
@@ -38,7 +38,7 @@
 }
 
 @media screen and (max-width: 424px){
-    .form__title{
+    .popup__title{
         font-size: 18px;
         line-height: 22px;
         margin-top: 25px;

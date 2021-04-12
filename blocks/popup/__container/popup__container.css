@@ -1,4 +1,4 @@
-.form__container{
+.popup__container{
     width: calc(100% - 2*425px);
     max-width: 430px;
     min-width: 282px;
@@ -14,25 +14,25 @@
 }
 
 @media screen and (max-width: 1279px){
-    .form__container{
+    .popup__container{
         width: calc(100% - 2*300px);
     }
 }
 
 @media screen and (max-width: 1023px){
-    .form__container{
+    .popup__container{
         width: calc(100% - 2*150px);
     }
 }
 
 @media screen and (max-width: 767px){
-    .form__container{
+    .popup__container{
         width: calc(100% - 2*45px);
     }
 }
 
 @media screen and (max-width: 424px){
-    .form__container{
+    .popup__container{
         width: calc(100% - 2*38px);
     }
 }
