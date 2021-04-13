@@ -19,7 +19,7 @@ const makeButtonDisable = (buttonElement, inactiveButtonClass) => {
     buttonElement.classList.add(inactiveButtonClass);
 }
 
-const makeButtonNotDisable = (buttonElement, inactiveButtonClass) => {
+function makeButtonNotDisable (buttonElement, inactiveButtonClass) {
     buttonElement.disabled = false;
     buttonElement.classList.remove(inactiveButtonClass);
 }

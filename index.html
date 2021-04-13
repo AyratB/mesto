@@ -27,17 +27,7 @@
                         <button type="button" class="button button_type_add-element" aria-label="Кнопка добавления элемента"></button> 
                     </section>
                     <section class="cards">
-                        <ul class="cards__list"></ul>
-                        <template id="card-template">
-                            <li class="card">
-                                <img src="#" alt="#" class="card__image">
-                                <div class="card__sign">
-                                    <h2 class="card__description"></h2>
-                                    <button type="button" class="card__heart" aria-label="Иконка лайка"></button>
-                                </div>
-                                <button class="button button_type_delete-card"></button>
-                            </li>
-                        </template>
+                        <ul class="cards__list"></ul>                        
                     </section>
                 </main>
                 <footer class="footer page__container-item page__container-item_stretch_narrow">
@@ -91,6 +81,16 @@
                 </div>
             </article>
         </div>
+        <template id="card-template">
+            <li class="card">
+                <img src="#" alt="#" class="card__image">
+                <div class="card__sign">
+                    <h2 class="card__description"></h2>
+                    <button type="button" class="card__heart" aria-label="Иконка лайка"></button>
+                </div>
+                <button class="button button_type_delete-card"></button>
+            </li>
+        </template>
         <script src="./scripts/initial-cards.js"></script>
         <script src="./scripts/index.js"></script>
         <script src="./scripts/validate.js"></script>
