@@ -108,10 +108,20 @@ function changeClickStatus(){
   this.classList.toggle('card__heart_active');
 }
 
-function escapeCloseHandler(e, popup) {
+function escapeCloseHandler(e) {
   if (e.key === keyToClose) {
-    closePopup(popup);
-    window.removeEventListener('keyup', escapeCloseHandler); 
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);     
+  }
+}
+
+function closePopupOverlayClickHandler(e){
+  
+  const popup = e.target;
+
+  if (popup.classList.contains('popup__overlay')) {
+    const openedPopup = popup.closest('.popup_opened');
+    closePopup(openedPopup);
   }
 }
 
@@ -119,16 +129,15 @@ const openPopup = popup => {
   popup.classList.add('popup_opened');
 
   //добавление закрытия по Esc
-  popup.querySelector('.popup__overlay').addEventListener('click', () => closePopup(popup));
-
-  window.addEventListener('keyup', (e) => escapeCloseHandler(e, popup));
+  popup.querySelector('.popup__overlay').addEventListener('click', closePopupOverlayClickHandler);
+  window.addEventListener('keyup', escapeCloseHandler);
 }
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
 
   //добавление закрытия по Esc
-  popup.querySelector('.popup__overlay').removeEventListener('click', closePopup);
+  popup.querySelector('.popup__overlay').removeEventListener('click', closePopupOverlayClickHandler);
 
   const form = popup.querySelector('.form');
   if(form)
@@ -137,6 +146,8 @@ const closePopup = (popup) => {
   //очистка формы добавления карточек
   if(popup.classList.contains('popup_type_card'))
     form.reset();
+
+  window.removeEventListener('keyup', escapeCloseHandler);
 }
 
 function preparePopup(popup, mainInputValue, descriptionInputValue){
