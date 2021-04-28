@@ -124,15 +124,24 @@ const openPopup = popup => {
     inputList[0].dispatchEvent(new Event("input"));
 }
 
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-
-  //добавление закрытия по Esc
-  popup.querySelector('.popup__overlay').removeEventListener('click', () => closePopup(popup));
+const clearFormErrors = (popup, formClearConfig) => {
 
   const form = popup.querySelector('.form');
   if(form)
-    clearAllErrors(form, '.form__input', 'form__input_type_error', 'form__span-error_active');
+    clearAllErrors(form, formClearConfig);
+}
+
+
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+
+  popup.querySelector('.popup__overlay').removeEventListener('click', () => closePopup(popup));
+
+  clearFormErrors(popup, { 
+    inputSelector: '.form__input',  
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__span-error_active',
+  });
 }
 
 function preparePopup(mainInputValue, descriptionInputValue){
