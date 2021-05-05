@@ -4,12 +4,9 @@ import { Card } from "./Card.js";
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
-const popupZoom = document.querySelector('.popup_type_image');
-
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const editProfileInputName = popupEditProfile.querySelector('input[name="edit-profile-name"]');
 const editProfileInputDescription = popupEditProfile.querySelector('input[name="edit-profile-description');
-
 const popupEditProfileEditButton = document.querySelector('.button_type_edit-profile');
 
 const popupAddCart = document.querySelector('.popup_type_card');
