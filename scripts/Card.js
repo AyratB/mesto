@@ -1,5 +1,3 @@
-
-
 export class Card {
     constructor(cardData, cardTemplateSelector, openPopupFunction){
         this._cardData = cardData;
@@ -49,3 +47,4 @@ export class Card {
     _likeHeartHandler = () => this._likeIcon.classList.toggle('card__heart_active');
 
     _setIconEventListeners = () => this._deleteIcon.addEventListener('click', () => this._cardItem.remove());
+}

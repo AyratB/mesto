@@ -1,7 +1,8 @@
-import {FormValidator} from "./FormValidator.js";
+import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
-
 import { initialCards } from './initial-cards.js';
+
+const KEY_TO_CLOSE = 'Escape';
 
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
@@ -19,11 +20,6 @@ const popupZoom = document.querySelector('.popup_type_image');
 const figureImage = popupZoom.querySelector('.figure__image');
 const figureCaption = popupZoom.querySelector('.figure__caption');
 
-//формы
-const editProfileForm = document.forms.editProfile;
-const addCardForm = document.forms.addCard;
-
-//валидация форм
 const validationConfig = {
   formSelector: '.form',
   inputSelector: '.form__input',
@@ -33,23 +29,49 @@ const validationConfig = {
   errorClass: 'form__span-error_active',
 };
 
-const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
+const editProfileForm = document.forms.editProfile;
+const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
+editProfileFormValidator.enableValidation();
 
-forms.forEach(form => {
-  const formValidator = new FormValidator(validationConfig, form);
-  
-  formValidator.enableValidation();
-});
+const addCardForm = document.forms.addCard;
+const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
+addCardFormValidator.enableValidation();
 
+const openPopup = popup => {
 
+  popup.classList.add('popup_opened');
+  setPopupOverlayEventListeners(popup.querySelector('.popup__overlay'));
+  setWindowEventListeners(); 
+}
 
-function  openPicture(name, link) {
+function setPopupOverlayEventListeners(popup){
+  popup.addEventListener('click', popupOverlayClickHandler);
+}
+
+function removePopupOverlayEventListeners(popup){
+  popup.removeEventListener('click', popupOverlayClickHandler);
+}
+
+function setWindowEventListeners(){
+  window.addEventListener('keyup', escapeCloseHandler);
+}
+
+function removeWindowEventListeners(){
+  window.removeEventListener('keyup', escapeCloseHandler);
+}
+
+const closePopup = popup => {
+
+  popup.classList.remove('popup_opened');
+  removePopupOverlayEventListeners(popup.querySelector('.popup__overlay'));
+  removeWindowEventListeners();    
+}
+
+function openPicture(name, link) {
 
   prepareZoomPopup(name, link);
   openPopup(popupZoom);
 }
-
-
 
 function prepareZoomPopup(name, link){
 
@@ -84,6 +106,7 @@ function handleEditProfile (evt) {
   evt.preventDefault();
 
   saveProfile();
+  
   closePopup(popupEditProfile);
 }
 
@@ -99,9 +122,10 @@ function handleAddCard(evt) {
   evt.preventDefault();
 
   addCard();
-  resetForm(addCardForm); 
 
-  closePopup(this);
+  addCardForm.reset();
+
+  closePopup(popupAddCart);
 }
 
 function addCard(){
@@ -123,17 +147,53 @@ function prepareEditPopup(mainInputValue, descriptionInputValue){
 }
 
 popupEditProfileEditButton.addEventListener('click', function(){
+
+  editProfileFormValidator.clearAllFormErrors();
+
   prepareEditPopup(profileName.textContent, profileDescription.textContent);
   openPopup(popupEditProfile);
+  
+  dispatchInputEvent(popupEditProfile);
+  const submitButton = popupEditProfile.querySelector('button[type="submit"]');
+  editProfileFormValidator.makeButtonDisable(submitButton);
 });
 
-addCardButton.addEventListener('click', () => openPopup(popupAddCart));
-popupAddCart.addEventListener('submit', handleAddCard); 
+function dispatchInputEvent(popup){
+  const inputs = popup.querySelectorAll('.form__input');
+  
+  if(inputs.length > 0)
+      inputs[0].dispatchEvent(new Event('input', {bubbles: true, cancelable: true,}));
+}
+
+addCardButton.addEventListener('click', () => {
+
+  addCardFormValidator.clearAllFormErrors();
+  addCardForm.reset();
+
+  openPopup(popupAddCart);
+  const submitButton = popupAddCart.querySelector('button[type="submit"]');
+  addCardFormValidator.makeButtonDisable(submitButton);  
+});
+
+addCardForm.addEventListener('submit', handleAddCard); 
 
 const closeButtonClickHandler = e => {
   
   const popup = e.target.closest('.popup');
   closePopup(popup);
+}
+
+function popupOverlayClickHandler(e){
+  
+  const openedPopup = e.target.closest('.popup_opened');
+  closePopup(openedPopup);    
+}
+
+function escapeCloseHandler(e) {
+  if (e.key === KEY_TO_CLOSE) {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);     
+  }
 }
 
 const setCloseButtonEventListener = closeButton => closeButton.addEventListener('click', closeButtonClickHandler);
