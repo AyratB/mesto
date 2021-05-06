@@ -1,6 +1,5 @@
 const popupZoom = document.querySelector('.popup_type_image');
-const figureImage = popupZoom.querySelector('.figure__image');
-const figureCaption = popupZoom.querySelector('.figure__caption');
+
 
 const keyToClose = 'Escape';
 
@@ -84,26 +83,14 @@ function popupOverlayClickHandler(e){
     const openedPopup = e.target.closest('.popup_opened');        
     closePopup(openedPopup);    
 }
-
-function prepareZoomPopupByCardData(data){
-
-    figureImage.src = data.link;
-    figureImage.alt = data.name;
-    
-    figureCaption.textContent = data.name;
-}
-
 function escapeCloseHandler(e) {
     if (e.key === keyToClose) {
       const openedPopup = document.querySelector('.popup_opened');
       closePopup(openedPopup);     
     }
-  }
-
-const openZoomPopup = () => openPopup(popupZoom);
+}
 
 const makeButtonDisable = (button, inactiveButtonClass) => {    
     button.disabled = true;
     button.classList.add(inactiveButtonClass);
 } 
-

@@ -1,6 +1,8 @@
 import {FormValidator} from "./FormValidator.js";
 import { Card } from "./Card.js";
 
+import { initialCards } from './initial-cards.js';
+
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
@@ -11,6 +13,11 @@ const popupEditProfileEditButton = document.querySelector('.button_type_edit-pro
 
 const popupAddCart = document.querySelector('.popup_type_card');
 const addCardButton = document.querySelector('.button_type_add-element');
+
+const popupZoom = document.querySelector('.popup_type_image');
+
+const figureImage = popupZoom.querySelector('.figure__image');
+const figureCaption = popupZoom.querySelector('.figure__caption');
 
 //формы
 const editProfileForm = document.forms.editProfile;
@@ -34,6 +41,24 @@ forms.forEach(form => {
   formValidator.enableValidation();
 });
 
+
+
+function  openPicture(name, link) {
+
+  prepareZoomPopup(name, link);
+  openPopup(popupZoom);
+}
+
+
+
+function prepareZoomPopup(name, link){
+
+    figureImage.src = link;
+    figureImage.alt = name;
+    
+    figureCaption.textContent = name;
+}
+
 //инициализация блока с карточками
 const cards = document.querySelector('.cards__list');
 const cardTemplateSelector = '#card-template';
@@ -48,7 +73,7 @@ function initCards(initialCards, wrap){
   
   initialCards.forEach(data => {
     
-    const cardItem = new Card(data, cardTemplateSelector);    
+    const cardItem = new Card(data, cardTemplateSelector, openPicture);    
     renderCard(cardItem, wrap);    
   });
 }
@@ -87,18 +112,18 @@ function addCard(){
   const cardItem = new Card({
     name: cardName,
     link: cardUrl,
-  }, cardTemplateSelector);
+  }, cardTemplateSelector, openPicture);
 
   renderCard(cardItem, cards);
 }
 
-function preparePopup(mainInputValue, descriptionInputValue){
+function prepareEditPopup(mainInputValue, descriptionInputValue){
   editProfileInputName.value = mainInputValue;
   editProfileInputDescription.value = descriptionInputValue;
 }
 
 popupEditProfileEditButton.addEventListener('click', function(){
-  preparePopup(profileName.textContent, profileDescription.textContent);
+  prepareEditPopup(profileName.textContent, profileDescription.textContent);
   openPopup(popupEditProfile);
 });
 
