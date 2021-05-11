@@ -1,58 +1,57 @@
-class Card {
-    constructor(cardData, cardTemplateSelector){
-        this._cardData = cardData;
-        this._cardTemplateSelector = cardTemplateSelector;
-    }
+export class Card {
+  constructor(cardData, cardTemplateSelector, openPopupFunction) {
+    this._cardData = cardData;
+    this._cardTemplateSelector = cardTemplateSelector;
+    this._openPopupFunction = openPopupFunction;
+  }
 
-    createCard = () => {
-  
-        const cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector('.card');
+  createCard = () => {
+    this._cardItem = this._getTemplate();
 
-        const cardItem = cardTemplate.cloneNode(true);
+    this._cardImage = this._cardItem.querySelector(".card__image");
+    this._cardImage.src = this._cardData.link;
+    this._cardImage.alt = this._cardData.name;
 
-        this._setCardData(cardItem)
-        this._setCardEventListeners(cardItem);
-      
-        return cardItem;
-    }
+    this._likeIcon = this._cardItem.querySelector(".card__heart");
+    this._deleteIcon = this._cardItem.querySelector(".button_type_delete-card");
+    this._cardDescription = this._cardItem.querySelector(".card__description");
 
-    _setCardData(cardItem){
+    this._setCardData();
+    this._setCardEventListeners();
 
-        const cardImage = cardItem.querySelector('.card__image');
-      
-        cardImage.src = this._cardData.link;
-        cardImage.alt = this._cardData.name;
+    return this._cardItem;
+  };
 
-        this._setCardImageEventListeners(cardImage);
-      
-        const cardDescription = cardItem.querySelector('.card__description');
-        cardDescription.textContent = this._cardData.name;
-    }
+  _getTemplate() {
+    const cardTemplate = document
+      .querySelector(this._cardTemplateSelector)
+      .content.querySelector(".card");
+    return cardTemplate.cloneNode(true);
+  }
 
-    _setCardImageEventListeners = cardImage => cardImage.addEventListener('click', () => this._handleOpenPicture(this._cardData));
-        
-    _handleOpenPicture(cardData){
+  _setCardData() {
+    this._setCardImageEventListeners();
+    this._cardDescription.textContent = this._cardData.name;
+  }
 
-        prepareZoomPopupByCardData(cardData);
-        openZoomPopup();
-    }
+  _setCardImageEventListeners = () =>
+    this._cardImage.addEventListener("click", () =>
+      this._handleOpenPicture(this._cardData.name, this._cardData.link)
+    );
 
-    _setCardEventListeners(cardItem){
+  _handleOpenPicture = (name, link) => this._openPopupFunction(name, link);
 
-        const likeIcon = cardItem.querySelector('.card__heart');
-        this._setLikeIconEventListeners(likeIcon);
-      
-        const deleteIcon = cardItem.querySelector('.button_type_delete-card');
-        this._setIconEventListeners(deleteIcon, cardItem);
-    }
+  _setCardEventListeners() {
+    this._setLikeIconEventListeners();
+    this._setIconEventListeners();
+  }
 
-    _setIconEventListeners = (deleteIcon, cardItem) => {
-        deleteIcon.addEventListener('click', () => cardItem.remove());
-    }
+  _setLikeIconEventListeners = () =>
+    this._likeIcon.addEventListener("click", this._likeHeartHandler);
 
-    _likeHeartHandler = likeIcon => likeIcon.classList.toggle('card__heart_active');
+  _likeHeartHandler = () =>
+    this._likeIcon.classList.toggle("card__heart_active");
 
-    _setLikeIconEventListeners = likeIcon => likeIcon.addEventListener('click', () => this._likeHeartHandler(likeIcon));
+  _setIconEventListeners = () =>
+    this._deleteIcon.addEventListener("click", () => this._cardItem.remove());
 }
-
-export {Card};
