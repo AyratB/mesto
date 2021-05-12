@@ -87,7 +87,6 @@ function prepareZoomPopup(name, link) {
 }
 
 const cards = document.querySelector(".cards__list");
-const cardTemplateSelector = "#card-template";
 
 function renderCard(cardItem, wrap) {
   const card = cardItem.createCard();
@@ -96,7 +95,7 @@ function renderCard(cardItem, wrap) {
 
 function initCards(initialCards, wrap) {
   initialCards.forEach((data) => {
-    const cardItem = new Card(data, cardTemplateSelector, openPicture);
+    const cardItem = new Card(data, openPicture);
     renderCard(cardItem, wrap);
   });
 }
@@ -137,8 +136,7 @@ function addCard() {
     {
       name: cardName,
       link: cardUrl,
-    },
-    cardTemplateSelector,
+    },    
     openPicture
   );
 
