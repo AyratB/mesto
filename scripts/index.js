@@ -1,6 +1,7 @@
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 import { initialCards } from "./initial-cards.js";
+import { Section } from "./Section.js";
 
 const KEY_TO_CLOSE = "Escape";
 
@@ -86,21 +87,20 @@ function prepareZoomPopup(name, link) {
   figureCaption.textContent = name;
 }
 
-const cards = document.querySelector(".cards__list");
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      const cardItem = new Card(data, openPicture);
+      const card = cardItem.createCard();
 
-function renderCard(cardItem, wrap) {
-  const card = cardItem.createCard();
-  wrap.prepend(card);
-}
+      section.addItem(card);
+    },
+  },
+  ".cards__list"
+);
 
-function initCards(initialCards, wrap) {
-  initialCards.forEach((data) => {
-    const cardItem = new Card(data, openPicture);
-    renderCard(cardItem, wrap);
-  });
-}
-
-initCards(initialCards, cards);
+section.renderItems();
 
 function handleEditProfile(evt) {
   evt.preventDefault();
@@ -128,15 +128,16 @@ function handleAddCard(evt) {
 }
 
 function addCard() {
-  const cardName = addCardForm.querySelector('input[name="add-card-name"]')
-    .value;
+  const cardName = addCardForm.querySelector(
+    'input[name="add-card-name"]'
+  ).value;
   const cardUrl = addCardForm.querySelector('input[name="add-card-url"]').value;
 
   const cardItem = new Card(
     {
       name: cardName,
       link: cardUrl,
-    },    
+    },
     openPicture
   );
 
@@ -155,7 +156,7 @@ popupEditProfileEditButton.addEventListener("click", function () {
   openPopup(popupEditProfile);
 
   dispatchInputEvent(popupEditProfile);
-  
+
   editProfileFormValidator.makeButtonDisable();
 });
 
@@ -199,6 +200,6 @@ function escapeCloseHandler(e) {
 const setCloseButtonEventListener = (closeButton) =>
   closeButton.addEventListener("click", closeButtonClickHandler);
 
-Array.from(
-  document.querySelectorAll(".button_type_close-popup")
-).forEach((closeButton) => setCloseButtonEventListener(closeButton));
+Array.from(document.querySelectorAll(".button_type_close-popup")).forEach(
+  (closeButton) => setCloseButtonEventListener(closeButton)
+);
