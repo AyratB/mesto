@@ -2,7 +2,7 @@ import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 import { initialCards } from "./initial-cards.js";
 import { Section } from "./Section.js";
-import { Popup } from "./Popup.js";
+import { PopupWithImage } from "./PopupWithImage.js";
 
 const KEY_TO_CLOSE = "Escape";
 
@@ -23,10 +23,7 @@ const popupEditProfileEditButton = document.querySelector(
 const popupAddCart = document.querySelector(".popup_type_card");
 const addCardButton = document.querySelector(".button_type_add-element");
 
-const popupZoom = document.querySelector(".popup_type_image");
 
-const figureImage = popupZoom.querySelector(".figure__image");
-const figureCaption = popupZoom.querySelector(".figure__caption");
 
 const validationConfig = {
   formSelector: ".form",
@@ -48,12 +45,14 @@ const addCardForm = document.forms.addCard;
 const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
 addCardFormValidator.enableValidation();
 
+//+
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
   popup.querySelector(".popup__overlay").addEventListener("click", popupOverlayClickHandler);
   window.addEventListener("keyup", escapeCloseHandler);
 };
 
+//+
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
   popup.querySelector(".popup__overlay").removeEventListener("click", popupOverlayClickHandler);
@@ -61,17 +60,15 @@ const closePopup = (popup) => {
   window.removeEventListener("keyup", escapeCloseHandler);
 };
 
+
+
+
 function openPicture(name, link) {
-  prepareZoomPopup(name, link);
-  openPopup(popupZoom);
+
+  const popupZoom = new PopupWithImage(".popup_type_image", name, link);
+  popupZoom.open();
 }
 
-function prepareZoomPopup(name, link) {
-  figureImage.src = link;
-  figureImage.alt = name;
-
-  figureCaption.textContent = name;
-}
 
 
 // Блок Section

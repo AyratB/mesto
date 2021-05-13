@@ -14,7 +14,7 @@ export class Popup {
   open() {
     this._popup.classList.add(Popup.popupConfig.openedClass);
 
-    this._popupOverlay = popup.querySelector(Popup.popupConfig.popupOverlayClassSelector);
+    this._popupOverlay = this._popup.querySelector(Popup.popupConfig.popupOverlayClassSelector);
     this._popupOverlay.addEventListener("click", this._handlePopupOverlayClick);
 
     window.addEventListener("keyup", this._handleEscClose);
