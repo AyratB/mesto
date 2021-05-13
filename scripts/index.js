@@ -2,6 +2,7 @@ import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 import { initialCards } from "./initial-cards.js";
 import { Section } from "./Section.js";
+import { Popup } from "./Popup.js";
 
 const KEY_TO_CLOSE = "Escape";
 
@@ -49,30 +50,15 @@ addCardFormValidator.enableValidation();
 
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-  setPopupOverlayEventListeners(popup.querySelector(".popup__overlay"));
-  setWindowEventListeners();
-};
-
-function setPopupOverlayEventListeners(popup) {
-  popup.addEventListener("click", popupOverlayClickHandler);
-}
-
-function removePopupOverlayEventListeners(popup) {
-  popup.removeEventListener("click", popupOverlayClickHandler);
-}
-
-function setWindowEventListeners() {
+  popup.querySelector(".popup__overlay").addEventListener("click", popupOverlayClickHandler);
   window.addEventListener("keyup", escapeCloseHandler);
-}
-
-function removeWindowEventListeners() {
-  window.removeEventListener("keyup", escapeCloseHandler);
-}
+};
 
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
-  removePopupOverlayEventListeners(popup.querySelector(".popup__overlay"));
-  removeWindowEventListeners();
+  popup.querySelector(".popup__overlay").removeEventListener("click", popupOverlayClickHandler);
+
+  window.removeEventListener("keyup", escapeCloseHandler);
 };
 
 function openPicture(name, link) {
@@ -87,6 +73,8 @@ function prepareZoomPopup(name, link) {
   figureCaption.textContent = name;
 }
 
+
+// Блок Section
 const section = new Section(
   {
     items: initialCards,
@@ -101,6 +89,10 @@ const section = new Section(
 );
 
 section.renderItems();
+
+// Блок Section
+
+
 
 function handleEditProfile(evt) {
   evt.preventDefault();
@@ -180,16 +172,19 @@ addCardButton.addEventListener("click", () => {
 
 addCardForm.addEventListener("submit", handleAddCard);
 
+//+
 const closeButtonClickHandler = (e) => {
   const popup = e.target.closest(".popup");
   closePopup(popup);
 };
 
+// +
 function popupOverlayClickHandler(e) {
   const openedPopup = e.target.closest(".popup_opened");
   closePopup(openedPopup);
 }
 
+// +
 function escapeCloseHandler(e) {
   if (e.key === KEY_TO_CLOSE) {
     const openedPopup = document.querySelector(".popup_opened");
@@ -197,9 +192,11 @@ function escapeCloseHandler(e) {
   }
 }
 
+//+
 const setCloseButtonEventListener = (closeButton) =>
   closeButton.addEventListener("click", closeButtonClickHandler);
 
+//++
 Array.from(document.querySelectorAll(".button_type_close-popup")).forEach(
   (closeButton) => setCloseButtonEventListener(closeButton)
 );
