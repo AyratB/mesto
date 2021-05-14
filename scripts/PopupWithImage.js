@@ -13,8 +13,8 @@ export class PopupWithImage extends Popup{
         this._link = link;
     }
 
-    open(){
-
+    open() {
+        
         const figureImage = this._popup.querySelector(PopupWithImage.popupWithImageConfig.figureImageClassSelector);
         const figureCaption = this._popup.querySelector(PopupWithImage.popupWithImageConfig.figureCaptionClassSelector);
 

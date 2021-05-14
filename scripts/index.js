@@ -3,72 +3,7 @@ import { Card } from "./Card.js";
 import { initialCards } from "./initial-cards.js";
 import { Section } from "./Section.js";
 import { PopupWithImage } from "./PopupWithImage.js";
-
-const KEY_TO_CLOSE = "Escape";
-
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-
-const popupEditProfile = document.querySelector(".popup_type_profile");
-const editProfileInputName = popupEditProfile.querySelector(
-  'input[name="edit-profile-name"]'
-);
-const editProfileInputDescription = popupEditProfile.querySelector(
-  'input[name="edit-profile-description'
-);
-const popupEditProfileEditButton = document.querySelector(
-  ".button_type_edit-profile"
-);
-
-const popupAddCart = document.querySelector(".popup_type_card");
-const addCardButton = document.querySelector(".button_type_add-element");
-
-
-
-const validationConfig = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".button_type_save-form",
-  inactiveButtonClass: "button_inactive",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__span-error_active",
-};
-
-const editProfileForm = document.forms.editProfile;
-const editProfileFormValidator = new FormValidator(
-  validationConfig,
-  editProfileForm
-);
-editProfileFormValidator.enableValidation();
-
-const addCardForm = document.forms.addCard;
-const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
-addCardFormValidator.enableValidation();
-
-//+
-const openPopup = (popup) => {
-  popup.classList.add("popup_opened");
-  popup.querySelector(".popup__overlay").addEventListener("click", popupOverlayClickHandler);
-  window.addEventListener("keyup", escapeCloseHandler);
-};
-
-//+
-const closePopup = (popup) => {
-  popup.classList.remove("popup_opened");
-  popup.querySelector(".popup__overlay").removeEventListener("click", popupOverlayClickHandler);
-
-  window.removeEventListener("keyup", escapeCloseHandler);
-};
-
-
-
-
-function openPicture(name, link) {
-
-  const popupZoom = new PopupWithImage(".popup_type_image", name, link);
-  popupZoom.open();
-}
-
+import { PopupWithForm } from "./PopupWithForm.js";
 
 
 // Блок Section
@@ -86,52 +21,106 @@ const section = new Section(
 );
 
 section.renderItems();
-
 // Блок Section
 
+const validationConfig = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".button_type_save-form",
+  inactiveButtonClass: "button_inactive",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__span-error_active",
+};
 
 
-function handleEditProfile(evt) {
+
+
+const editProfileForm = document.forms.editProfile;
+
+editProfileForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
 
   saveProfile();
 
   closePopup(popupEditProfile);
-}
+});
+
+const editProfileFormValidator = new FormValidator(
+  validationConfig,
+  editProfileForm
+);
+
+editProfileFormValidator.enableValidation();
+
+
+const popupEditProfile = document.querySelector(".popup_type_profile");
+const editProfileInputName = popupEditProfile.querySelector(
+  'input[name="edit-profile-name"]'
+);
+const editProfileInputDescription = popupEditProfile.querySelector(
+  'input[name="edit-profile-description'
+);
+const popupEditProfileEditButton = document.querySelector(
+  ".button_type_edit-profile"
+);
+
+
+
+
+const addCardForm = document.forms.addCard;
+
+const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
+addCardFormValidator.enableValidation();
+
+const addNewCardButton = document.querySelector(".button_type_add-element");
+
+addNewCardButton.addEventListener("click", () => {  
+
+  addCardFormValidator.clearAllFormErrors();
+
+  const popupAddCart = new PopupWithForm({ 
+    popupSelector: ".popup_type_card", 
+    submitFormCb: (evt, name, description) => {
+      evt.preventDefault();
+
+      const cardItem = new Card(
+        {
+          name: name,
+          link: description,
+
+          // name: addCardForm.querySelector('input[name="add-card-name"]').value,
+          // link: addCardForm.querySelector('input[name="add-card-url"]').value,
+        },
+        openPicture
+      );
+    
+      section.addItem(cardItem);
+      
+      popupAddCart.close(); //closePopup(popupAddCart);      
+  }});
+
+  popupAddCart.open(); //openPopup(popupAddCart); 
+
+  addCardFormValidator.makeButtonDisable();
+});
+
+
+
+
+
+
+
+
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+
 
 function saveProfile() {
   profileName.textContent = editProfileInputName.value;
   profileDescription.textContent = editProfileInputDescription.value;
 }
 
-editProfileForm.addEventListener("submit", handleEditProfile);
 
-function handleAddCard(evt) {
-  evt.preventDefault();
-
-  addCard();
-
-  addCardForm.reset();
-
-  closePopup(popupAddCart);
-}
-
-function addCard() {
-  const cardName = addCardForm.querySelector(
-    'input[name="add-card-name"]'
-  ).value;
-  const cardUrl = addCardForm.querySelector('input[name="add-card-url"]').value;
-
-  const cardItem = new Card(
-    {
-      name: cardName,
-      link: cardUrl,
-    },
-    openPicture
-  );
-
-  renderCard(cardItem, cards);
-}
 
 function prepareEditPopup(mainInputValue, descriptionInputValue) {
   editProfileInputName.value = mainInputValue;
@@ -158,16 +147,40 @@ function dispatchInputEvent(popup) {
     );
 }
 
-addCardButton.addEventListener("click", () => {
-  addCardFormValidator.clearAllFormErrors();
-  addCardForm.reset();
 
-  openPopup(popupAddCart);
 
-  addCardFormValidator.makeButtonDisable();
-});
 
-addCardForm.addEventListener("submit", handleAddCard);
+
+
+
+
+//+
+const openPopup = (popup) => {
+  popup.classList.add("popup_opened");
+  popup.querySelector(".popup__overlay").addEventListener("click", popupOverlayClickHandler);
+  window.addEventListener("keyup", escapeCloseHandler);
+};
+
+//+
+const closePopup = (popup) => {
+  popup.classList.remove("popup_opened");
+  popup.querySelector(".popup__overlay").removeEventListener("click", popupOverlayClickHandler);
+
+  window.removeEventListener("keyup", escapeCloseHandler);
+};
+
+//оставить
+function openPicture(name, link) {
+
+  const popupZoom = new PopupWithImage(".popup_type_image", name, link);
+  popupZoom.open();
+}
+
+
+
+
+
+
 
 //+
 const closeButtonClickHandler = (e) => {

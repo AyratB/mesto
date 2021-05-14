@@ -12,6 +12,7 @@ export class Popup {
   }
 
   open() {
+    debugger;
     this._popup.classList.add(Popup.popupConfig.openedClass);
 
     this._popupOverlay = this._popup.querySelector(Popup.popupConfig.popupOverlayClassSelector);
@@ -31,15 +32,15 @@ export class Popup {
     window.removeEventListener("keyup", this._handleEscClose);
   }
 
-  _handleEscClose() {
-    if (e.key === Popup.popupConfig.KEY_TO_CLOSE) {      
-      this.closePopup();
+  _handleEscClose = (e) => {
+    if (e.key === Popup.popupConfig.KEY_TO_CLOSE) {
+      this.close();
     }
   }
 
   setEventListeners() {
+      debugger;
     const buttonClose = this._popup.querySelector(Popup.popupConfig.buttonClosePopupClassSelector);
-
     buttonClose.addEventListener("click", this._handleCloseButtonClick);
   }
 
