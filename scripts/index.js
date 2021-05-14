@@ -4,6 +4,7 @@ import { initialCards } from "./initial-cards.js";
 import { Section } from "./Section.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { PopupWithForm } from "./PopupWithForm.js";
+import { UserInfo } from "./UserInfo.js";
 
 const section = new Section(
   {
@@ -27,7 +28,10 @@ const validationConfig = {
   errorClass: "form__span-error_active",
 };
 
-const addCardFormValidator = new FormValidator(validationConfig, document.forms.addCard);
+const addCardFormValidator = new FormValidator(
+  validationConfig,
+  document.forms.addCard
+);
 const editProfileFormValidator = new FormValidator(
   validationConfig,
   document.forms.editProfile
@@ -37,13 +41,6 @@ const addNewCardButton = document.querySelector(".button_type_add-element");
 const popupEditProfileEditButton = document.querySelector(
   ".button_type_edit-profile"
 );
-
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(
-  ".profile__description"
-);
-
-
 
 section.renderItems();
 
@@ -89,18 +86,21 @@ function createCard(name, description) {
 editProfileFormValidator.enableValidation();
 
 popupEditProfileEditButton.addEventListener("click", () => {
-  editProfileFormValidator.clearAllFormErrors();  
+  editProfileFormValidator.clearAllFormErrors();
 
-  getProfileData();  
+  const userInfo = new UserInfo({
+    profileNameSelector: ".profile__name",
+    profileDescriptionSelector: ".profile__description",
+  });
+
+  getProfileData(userInfo);
 
   const popupEditForm = new PopupWithForm({
     popupSelector: ".popup_type_profile",
 
     submitFormCb: (evt, name, description) => {
       evt.preventDefault();
-      
-      setProfileData(name, description);
-
+      userInfo.setUserInfo(name, description);
       popupEditForm.close();
     },
   });
@@ -112,26 +112,22 @@ popupEditProfileEditButton.addEventListener("click", () => {
   editProfileFormValidator.makeButtonDisable();
 });
 
-function getProfileData(){
+function getProfileData(userInfo) {
   const popupEditProfile = document.querySelector(".popup_type_profile");
   const editProfileInputName = popupEditProfile.querySelector(
     'input[name="edit-profile-name"]'
   );
-  editProfileInputName.value = profileName.textContent;
-
   const editProfileInputDescription = popupEditProfile.querySelector(
     'input[name="edit-profile-description'
   );
-  editProfileInputDescription.value = profileDescription.textContent;
-}
 
-function setProfileData(name, description){
-  profileName.textContent = name;      
-  profileDescription.textContent = description;
+  const { profileName, profileDescription } = userInfo.getUserInfo();
+
+  editProfileInputName.value = profileName;
+  editProfileInputDescription.value = profileDescription;
 }
 
 function dispatchInputEvent(form) {
-
   const inputs = form.querySelectorAll(".form__input");
 
   if (inputs.length > 0)
