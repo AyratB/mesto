@@ -10,7 +10,7 @@ const section = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const cardItem = new Card(data, openPicture);
+      const cardItem = new Card(data, handleCardClick);
       const card = cardItem.createCard();
 
       section.addItem(card);
@@ -75,7 +75,7 @@ function createCard(name, description) {
       name: name,
       link: description,
     },
-    openPicture
+    handleCardClick
   );
 
   const card = cardItem.createCard();
@@ -136,7 +136,7 @@ function dispatchInputEvent(form) {
     );
 }
 
-function openPicture(name, link) {
+function handleCardClick(name, link) {
   const popupZoom = new PopupWithImage(".popup_type_image", name, link);
   popupZoom.open();
 }

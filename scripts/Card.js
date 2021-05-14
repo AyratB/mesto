@@ -9,9 +9,9 @@ export class Card {
     cardTemplateClassSelector: "#card-template",
   };
 
-  constructor(cardData, openPopupFunction) {
+  constructor(cardData, handleCardClick) {
     this._cardData = cardData;
-    this._openPopupFunction = openPopupFunction;
+    this._handleCardClick = handleCardClick;
   }
 
   createCard = () => {
@@ -50,7 +50,7 @@ export class Card {
     );
   };
 
-  _handleOpenPicture = (name, link) => this._openPopupFunction(name, link);
+  _handleOpenPicture = (name, link) => this._handleCardClick(name, link);
 
   _setCardEventListeners() {
     this._setCardImageEventListeners();
