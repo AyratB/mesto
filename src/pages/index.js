@@ -1,23 +1,13 @@
-import { FormValidator } from "./FormValidator.js";
-import { Card } from "./Card.js";
-import { initialCards } from "./initial-cards.js";
-import { Section } from "./Section.js";
-import { PopupWithImage } from "./PopupWithImage.js";
-import { PopupWithForm } from "./PopupWithForm.js";
-import { UserInfo } from "./UserInfo.js";
+import { initialCards } from "../scripts/initial-cards.js";
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (data) => {
-      const cardItem = new Card(data, handleCardClick);
-      const card = cardItem.createCard();
+import { FormValidator } from "../components/FormValidator.js";
+import { Card } from "../components/Card.js";
+import { Section } from "../components/Section.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { UserInfo } from "../components/UserInfo.js";
 
-      section.addItem(card);
-    },
-  },
-  ".cards__list"
-);
+import "../pages/index.css";
 
 const validationConfig = {
   formSelector: ".form",
@@ -42,7 +32,25 @@ const popupEditProfileEditButton = document.querySelector(
   ".button_type_edit-profile"
 );
 
-section.renderItems();
+makeSection(initialCards);
+
+function makeSection(initialCards){
+
+  const section = new Section(
+    {
+      items: initialCards,
+      renderer: (data) => {
+        const cardItem = new Card(data, handleCardClick);
+        const card = cardItem.createCard();
+  
+        section.addItem(card);
+      },
+    },
+    ".cards__list"
+  );
+  
+  section.renderItems();
+}
 
 addCardFormValidator.enableValidation();
 
@@ -56,9 +64,7 @@ function handleAddNewCardButton() {
     submitFormCb: (evt, name, description) => {
       evt.preventDefault();
 
-      const card = createCard(name, description);
-
-      section.addItem(card);
+      makeSection([{ name: name, link: description }]);
 
       popupAddCart.close();
     },
@@ -67,20 +73,6 @@ function handleAddNewCardButton() {
   popupAddCart.open();
 
   addCardFormValidator.makeButtonDisable();
-}
-
-function createCard(name, description) {
-  const cardItem = new Card(
-    {
-      name: name,
-      link: description,
-    },
-    handleCardClick
-  );
-
-  const card = cardItem.createCard();
-
-  return card;
 }
 
 editProfileFormValidator.enableValidation();

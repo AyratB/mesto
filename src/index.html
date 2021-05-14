@@ -6,18 +6,17 @@
         <meta name="description" content="Проектная работа #7">
         <meta name="author" content="Бурнашев Айрат">
         <title>Сервис MESTO</title>
-        <link rel="stylesheet" href="./pages/index.css">
     </head>
     <body>
         <div class="page">
             <div class="page__container">
                 <header class="header page__container-item">
-                    <a class="header__link" href="#" target="_self"><img src="./images/header_logo_white.svg" alt="Лого" class="header__logo"></a>
+                    <a class="header__link" href="#" target="_self"><img src="<%=require('./images/header_logo_white.svg')%>" alt="Лого" class="header__logo"></a>                                                                    
                 </header>
                 <main class="main page__container-item page__container-item_stretch_narrow">
                     <section class="profile">
                         <div class="profile__avatar-container">
-                            <img class="profile__avatar" src="./images/kusto.jpg" alt="Аватар пользователя">
+                            <img class="profile__avatar" src="<%=require('./images/kusto.jpg')%>" alt="Аватар пользователя">                                            
                             <div class="profile__info">
                                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                                 <button type="button" class="button button_type_edit-profile" aria-label="Кнопка редактирования профиля"></button>
@@ -91,6 +90,5 @@
                 <button class="button button_type_delete-card"></button>
             </li>
         </template>
-        <script type="module" src="./scripts/index.js"></script>
     </body>
 </html>

@@ -19,7 +19,7 @@ export class Card {
 
     this._setCardData();
     this._setCardEventListeners();
-
+    debugger;
     return this._cardItem;
   };
 
