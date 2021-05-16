@@ -1,4 +1,5 @@
-import { initialCards } from "../scripts/initial-cards.js";
+//импорты
+import { initialCards } from "../utils/initial-cards.js";
 
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
@@ -8,7 +9,9 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 
 import "../pages/index.css";
+//импорты
 
+//константы
 const validationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
@@ -22,6 +25,7 @@ const addCardFormValidator = new FormValidator(
   validationConfig,
   document.forms.addCard
 );
+
 const editProfileFormValidator = new FormValidator(
   validationConfig,
   document.forms.editProfile
@@ -32,44 +36,70 @@ const popupEditProfileEditButton = document.querySelector(
   ".button_type_edit-profile"
 );
 
-makeSection(initialCards);
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => section.addItem(returnCard(data)),
+  },
+  ".cards__list"
+);
 
-function makeSection(initialCards){
+const popupAddCart = new PopupWithForm({
+  popupSelector: ".popup_type_card",
+  submitFormCb: (formData) => {
+    section.addItem(
+      returnCard({
+        name: formData["add-card-name"],
+        link: formData["add-card-url"],
+      })
+    );
+    popupAddCart.close();
+  },
+});
 
-  const section = new Section(
-    {
-      items: initialCards,
-      renderer: (data) => {
-        const cardItem = new Card(data, handleCardClick);
-        const card = cardItem.createCard();
-  
-        section.addItem(card);
-      },
-    },
-    ".cards__list"
-  );
-  
-  section.renderItems();
-}
+const userInfo = new UserInfo({
+  profileNameSelector: ".profile__name",
+  profileDescriptionSelector: ".profile__description",
+});
+
+const popupEditForm = new PopupWithForm({
+  popupSelector: ".popup_type_profile",
+
+  submitFormCb: (formData) => {
+    userInfo.setUserInfo(
+      formData["edit-profile-name"],
+      formData["edit-profile-description"]
+    );
+    popupEditForm.close();
+  },
+});
+
+const popupEditProfile = document.querySelector(".popup_type_profile");
+const editProfileInputName = popupEditProfile.querySelector(
+  'input[name="edit-profile-name"]'
+);
+const editProfileInputDescription = popupEditProfile.querySelector(
+  'input[name="edit-profile-description'
+);
+
+const popupZoom = new PopupWithImage(".popup_type_image");
+//константы
+
+section.renderItems();
 
 addCardFormValidator.enableValidation();
 
 addNewCardButton.addEventListener("click", handleAddNewCardButton);
 
+function returnCard(data) {
+  const cardItem = new Card(data, handleCardClick, "#card-template");
+  return cardItem.createCard();
+}
+
 function handleAddNewCardButton() {
   addCardFormValidator.clearAllFormErrors();
 
-  const popupAddCart = new PopupWithForm({
-    popupSelector: ".popup_type_card",
-    submitFormCb: (evt, name, description) => {
-      evt.preventDefault();
-
-      makeSection([{ name: name, link: description }]);
-
-      popupAddCart.close();
-    },
-  });
-
+  popupAddCart.setEventListeners();
   popupAddCart.open();
 
   addCardFormValidator.makeButtonDisable();
@@ -80,23 +110,9 @@ editProfileFormValidator.enableValidation();
 popupEditProfileEditButton.addEventListener("click", () => {
   editProfileFormValidator.clearAllFormErrors();
 
-  const userInfo = new UserInfo({
-    profileNameSelector: ".profile__name",
-    profileDescriptionSelector: ".profile__description",
-  });
-
   getProfileData(userInfo);
 
-  const popupEditForm = new PopupWithForm({
-    popupSelector: ".popup_type_profile",
-
-    submitFormCb: (evt, name, description) => {
-      evt.preventDefault();
-      userInfo.setUserInfo(name, description);
-      popupEditForm.close();
-    },
-  });
-
+  popupEditForm.setEventListeners();
   popupEditForm.open();
 
   dispatchInputEvent(popupEditForm.form);
@@ -105,14 +121,6 @@ popupEditProfileEditButton.addEventListener("click", () => {
 });
 
 function getProfileData(userInfo) {
-  const popupEditProfile = document.querySelector(".popup_type_profile");
-  const editProfileInputName = popupEditProfile.querySelector(
-    'input[name="edit-profile-name"]'
-  );
-  const editProfileInputDescription = popupEditProfile.querySelector(
-    'input[name="edit-profile-description'
-  );
-
   const { profileName, profileDescription } = userInfo.getUserInfo();
 
   editProfileInputName.value = profileName;
@@ -129,6 +137,7 @@ function dispatchInputEvent(form) {
 }
 
 function handleCardClick(name, link) {
-  const popupZoom = new PopupWithImage(".popup_type_image", name, link);
-  popupZoom.open();
+  
+  popupZoom.setEventListeners();
+  popupZoom.open(name, link);
 }
