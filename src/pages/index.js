@@ -57,6 +57,8 @@ const popupAddCart = new PopupWithForm({
   },
 });
 
+popupAddCart.setEventListeners();
+
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__name",
   profileDescriptionSelector: ".profile__description",
@@ -74,6 +76,8 @@ const popupEditForm = new PopupWithForm({
   },
 });
 
+popupEditForm.setEventListeners();
+
 const popupEditProfile = document.querySelector(".popup_type_profile");
 const editProfileInputName = popupEditProfile.querySelector(
   'input[name="edit-profile-name"]'
@@ -83,6 +87,7 @@ const editProfileInputDescription = popupEditProfile.querySelector(
 );
 
 const popupZoom = new PopupWithImage(".popup_type_image");
+popupZoom.setEventListeners();
 //константы
 
 section.renderItems();
@@ -98,8 +103,7 @@ function returnCard(data) {
 
 function handleAddNewCardButton() {
   addCardFormValidator.clearAllFormErrors();
-
-  popupAddCart.setEventListeners();
+  
   popupAddCart.open();
 
   addCardFormValidator.makeButtonDisable();
@@ -111,8 +115,7 @@ popupEditProfileEditButton.addEventListener("click", () => {
   editProfileFormValidator.clearAllFormErrors();
 
   getProfileData(userInfo);
-
-  popupEditForm.setEventListeners();
+  
   popupEditForm.open();
 
   dispatchInputEvent(popupEditForm.form);
@@ -137,7 +140,5 @@ function dispatchInputEvent(form) {
 }
 
 function handleCardClick(name, link) {
-  
-  popupZoom.setEventListeners();
   popupZoom.open(name, link);
 }
