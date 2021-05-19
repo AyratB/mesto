@@ -4,10 +4,10 @@ export class Api {
     cardsFolder: "cards",
   };
 
-  constructor({ baseUrl, headers }, cardsRendererCb, setUserInfoCb) {
+  constructor({ baseUrl, headers }, cardRendererCb, setUserInfoCb) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this._cardsRendererCb = cardsRendererCb;
+    this._cardRendererCb = cardRendererCb;
     this._setUserInfoCb = setUserInfoCb;
   }
 
@@ -20,7 +20,9 @@ export class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
       )
-      .then((result) => this._cardsRendererCb(result))
+      .then((cards) => {
+        cards.forEach((card) => this._cardRendererCb(card));
+      })
       .catch((err) => console.log(err));
   }
 
@@ -54,6 +56,27 @@ export class Api {
       )
       .then((result) => {
         this._setUserInfoCb(result);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  addNewCard({ cardName, cardLink }) {
+    return fetch(`${this._baseUrl}/${Api.apiConfig.cardsFolder}`, {
+      method: "POST",
+      headers: {
+        authorization: this._headers.authorization,
+        "Content-Type": this._headers["Content-Type"],
+      },
+      body: JSON.stringify({
+        name: cardName,
+        link: cardLink,
+      }),
+    })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+      )
+      .then((newCardData) => {
+        this._cardRendererCb(newCardData);
       })
       .catch((err) => console.log(err));
   }

@@ -13,6 +13,11 @@ import "../pages/index.css";
 //константы
 const profileImage = document.querySelector(".profile__avatar");
 
+const userInfo = new UserInfo({
+  profileNameSelector: ".profile__name",
+  profileDescriptionSelector: ".profile__description",
+});
+
 const section = new Section(".cards__list");
 
 const api = new Api(
@@ -23,12 +28,10 @@ const api = new Api(
       "Content-Type": apiUserData.apiContentType,
     },
   },
-  (cardsData) => {
-    cardsData.forEach((cardData) => {
-      section.addItem(
-        returnCard({ name: cardData["name"], link: cardData["link"] })
-      );
-    });
+  (cardData) => {
+    section.addItem(
+      returnCard({ name: cardData["name"], link: cardData["link"] })
+    );
   },
   (user) => {
     userInfo.setUserInfo(user["name"], user["about"]);
@@ -39,6 +42,7 @@ const api = new Api(
 api.getUserInfo();
 api.getInitialCards();
 
+//валидация
 const validationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
@@ -57,6 +61,7 @@ const editProfileFormValidator = new FormValidator(
   validationConfig,
   document.forms.editProfile
 );
+//валидация
 
 const addNewCardButton = document.querySelector(".button_type_add-element");
 const popupEditProfileEditButton = document.querySelector(
@@ -66,22 +71,16 @@ const popupEditProfileEditButton = document.querySelector(
 const popupAddCart = new PopupWithForm({
   popupSelector: ".popup_type_card",
   submitFormCb: (formData) => {
-    section.addItem(
-      returnCard({
-        name: formData["add-card-name"],
-        link: formData["add-card-url"],
-      })
-    );
+    api.addNewCard({
+      cardName: formData["add-card-name"],
+      cardLink: formData["add-card-url"],
+    });
+
     popupAddCart.close();
   },
 });
 
 popupAddCart.setEventListeners();
-
-const userInfo = new UserInfo({
-  profileNameSelector: ".profile__name",
-  profileDescriptionSelector: ".profile__description",
-});
 
 const popupEditForm = new PopupWithForm({
   popupSelector: ".popup_type_profile",
