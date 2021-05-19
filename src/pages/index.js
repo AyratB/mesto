@@ -1,4 +1,3 @@
-
 import { apiUserData } from "../utils/apiUserData.js";
 
 import { FormValidator } from "../components/FormValidator.js";
@@ -7,13 +6,39 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
-
 import { Api } from "../components/Api.js";
 
 import "../pages/index.css";
-//импорты
 
 //константы
+const profileImage = document.querySelector(".profile__avatar");
+
+const section = new Section(".cards__list");
+
+const api = new Api(
+  {
+    baseUrl: `${apiUserData.ariBaseUrl}/${apiUserData.userGroupNumber}`,
+    headers: {
+      authorization: apiUserData.userAuthorizationToken,
+      "Content-Type": apiUserData.apiContentType,
+    },
+  },
+  (cardsData) => {
+    cardsData.forEach((cardData) => {
+      section.addItem(
+        returnCard({ name: cardData["name"], link: cardData["link"] })
+      );
+    });
+  },
+  (user) => {
+    userInfo.setUserInfo(user["name"], user["about"]);
+    profileImage.src = user["avatar"];
+  }
+);
+
+api.getUserInfo();
+api.getInitialCards();
+
 const validationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
@@ -37,8 +62,6 @@ const addNewCardButton = document.querySelector(".button_type_add-element");
 const popupEditProfileEditButton = document.querySelector(
   ".button_type_edit-profile"
 );
-
-const section = new Section(".cards__list");
 
 const popupAddCart = new PopupWithForm({
   popupSelector: ".popup_type_card",
@@ -85,29 +108,6 @@ const editProfileInputDescription = popupEditProfile.querySelector(
 const popupZoom = new PopupWithImage(".popup_type_image");
 popupZoom.setEventListeners();
 //константы
-
-const api = new Api(
-  {
-    baseUrl: `${apiUserData.ariBaseUrl}/${apiUserData.userGroupNumber}`,
-    headers: {
-      authorization: apiUserData.userAuthorizationToken,
-      "Content-Type": apiUserData.apiContentType,
-    },
-  },
-  (cardsData) => {
-    cardsData.forEach((cardData) => {
-      section.addItem(
-        returnCard({
-          name: cardData["name"],
-          link: cardData["link"],
-        })
-      );
-    });
-  }
-);
-
-//отрисовка карточек через Api
-api.getInitialCards();
 
 addCardFormValidator.enableValidation();
 

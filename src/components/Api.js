@@ -1,12 +1,14 @@
 export class Api {
   static apiConfig = {
+    userInfoFolder: "users/me",
     cardsFolder: "cards",
   };
 
-  constructor({ baseUrl, headers }, rendererCb) {
+  constructor({ baseUrl, headers }, cardsRendererCb, setUserInfoCb) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this._rendererCb = rendererCb;
+    this._cardsRendererCb = cardsRendererCb;
+    this._setUserInfoCb = setUserInfoCb;
   }
 
   getInitialCards() {
@@ -15,14 +17,23 @@ export class Api {
         authorization: this._headers.authorization,
       },
     })
-      .then((res) => {
-        return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then((result) => {
-        this._rendererCb(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+      )
+      .then((result) => this._cardsRendererCb(result))
+      .catch((err) => console.log(err));
+  }
+
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/${Api.apiConfig.userInfoFolder}`, {
+      headers: {
+        authorization: this._headers.authorization,
+      },
+    })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+      )
+      .then((result) => this._setUserInfoCb(result))
+      .catch((err) => console.log(err));
   }
 }
