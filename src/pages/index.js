@@ -1,5 +1,5 @@
-//импорты
-import { initialCards } from "../utils/initial-cards.js";
+
+import { apiUserData } from "../utils/apiUserData.js";
 
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
@@ -7,6 +7,8 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+
+import { Api } from "../components/Api.js";
 
 import "../pages/index.css";
 //импорты
@@ -36,13 +38,7 @@ const popupEditProfileEditButton = document.querySelector(
   ".button_type_edit-profile"
 );
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (data) => section.addItem(returnCard(data)),
-  },
-  ".cards__list"
-);
+const section = new Section(".cards__list");
 
 const popupAddCart = new PopupWithForm({
   popupSelector: ".popup_type_card",
@@ -90,7 +86,28 @@ const popupZoom = new PopupWithImage(".popup_type_image");
 popupZoom.setEventListeners();
 //константы
 
-section.renderItems();
+const api = new Api(
+  {
+    baseUrl: `${apiUserData.ariBaseUrl}/${apiUserData.userGroupNumber}`,
+    headers: {
+      authorization: apiUserData.userAuthorizationToken,
+      "Content-Type": apiUserData.apiContentType,
+    },
+  },
+  (cardsData) => {
+    cardsData.forEach((cardData) => {
+      section.addItem(
+        returnCard({
+          name: cardData["name"],
+          link: cardData["link"],
+        })
+      );
+    });
+  }
+);
+
+//отрисовка карточек через Api
+api.getInitialCards();
 
 addCardFormValidator.enableValidation();
 
@@ -98,12 +115,13 @@ addNewCardButton.addEventListener("click", handleAddNewCardButton);
 
 function returnCard(data) {
   const cardItem = new Card(data, handleCardClick, "#card-template");
-  return cardItem.createCard();
+  const card = cardItem.createCard();
+  return card;
 }
 
 function handleAddNewCardButton() {
   addCardFormValidator.clearAllFormErrors();
-  
+
   popupAddCart.open();
 
   addCardFormValidator.makeButtonDisable();
@@ -115,7 +133,7 @@ popupEditProfileEditButton.addEventListener("click", () => {
   editProfileFormValidator.clearAllFormErrors();
 
   getProfileData(userInfo);
-  
+
   popupEditForm.open();
 
   dispatchInputEvent(popupEditForm.form);
