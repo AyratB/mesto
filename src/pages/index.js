@@ -87,10 +87,11 @@ const popupEditForm = new PopupWithForm({
   popupSelector: ".popup_type_profile",
 
   submitFormCb: (formData) => {
-    userInfo.setUserInfo(
-      formData["edit-profile-name"],
-      formData["edit-profile-description"]
-    );
+    api.editUserInfo({
+      newName: formData["edit-profile-name"],
+      newAbout: formData["edit-profile-description"],
+    });
+
     popupEditForm.close();
   },
 });

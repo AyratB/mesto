@@ -36,4 +36,25 @@ export class Api {
       .then((result) => this._setUserInfoCb(result))
       .catch((err) => console.log(err));
   }
+
+  editUserInfo({ newName = "", newAbout = "" }) {
+    return fetch(`${this._baseUrl}/${Api.apiConfig.userInfoFolder}`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._headers.authorization,
+        "Content-Type": this._headers["Content-Type"],
+      },
+      body: JSON.stringify({
+        name: newName,
+        about: newAbout,
+      }),
+    })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+      )
+      .then((result) => {
+        this._setUserInfoCb(result);
+      })
+      .catch((err) => console.log(err));
+  }
 }
