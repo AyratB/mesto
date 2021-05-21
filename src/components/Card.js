@@ -5,7 +5,8 @@ export class Card {
     cardDeleteIconClassSelector: ".button_type_delete-card",
     cardDescriptionClassSelector: ".card__description",
     cardClassSelector: ".card",
-    cardActiveHeartClassSelector: "card__heart_active",
+    cardActiveHeartClass: "card__heart_active",
+    cardHeartVoicesClassSelector: ".card__heart-voices",
   };
 
   constructor(cardData, handleCardClick, cardTemplateClassSelector) {
@@ -35,8 +36,14 @@ export class Card {
       Card.CardSelectors.cardDescriptionClassSelector
     );
 
+    this._cardHeartVoices = this._cardItem.querySelector(
+      Card.CardSelectors.cardHeartVoicesClassSelector
+    );
+
     this._setCardData();
     this._setCardEventListeners();
+
+    this._countHEartVoices();
 
     return this._cardItem;
   };
@@ -59,6 +66,10 @@ export class Card {
     );
   };
 
+  _countHEartVoices = () => {
+    this._cardHeartVoices.textContent = this._cardData.likes.length;
+  };
+
   _handleOpenPicture = (name, link) => this._handleCardClick(name, link);
 
   _setCardEventListeners() {
@@ -69,9 +80,7 @@ export class Card {
 
   _setLikeIconEventListeners = () => {
     this._likeIcon.addEventListener("click", () =>
-      this._likeIcon.classList.toggle(
-        Card.CardSelectors.cardActiveHeartClassSelector
-      )
+      this._likeIcon.classList.toggle(Card.CardSelectors.cardActiveHeartClass)
     );
   };
 

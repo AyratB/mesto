@@ -26,6 +26,10 @@
 @import url(../blocks/card/__heart/card__heart.css);
 @import url(../blocks/card/__heart/_active/card__heart_active.css);
 @import url(../blocks/card/__sign/card__sign.css);
+
+@import url(../blocks/card/__heart-container/card__heart-container.css);
+
+
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/page/__container/page__container.css);

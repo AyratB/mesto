@@ -18,29 +18,36 @@ const userInfo = new UserInfo({
   profileDescriptionSelector: ".profile__description",
 });
 
-const section = new Section(".cards__list");
-
-const api = new Api(
+const section = new Section(
   {
-    baseUrl: `${apiUserData.ariBaseUrl}/${apiUserData.userGroupNumber}`,
-    headers: {
-      authorization: apiUserData.userAuthorizationToken,
-      "Content-Type": apiUserData.apiContentType,
-    },
+    renderer: (data) => section.addItem(returnCard(data)),
   },
-  (cardData) => {
-    section.addItem(
-      returnCard({ name: cardData["name"], link: cardData["link"] })
-    );
-  },
-  (user) => {
-    userInfo.setUserInfo(user["name"], user["about"]);
-    profileImage.src = user["avatar"];
-  }
+  ".cards__list"
 );
 
-api.getUserInfo();
-api.getInitialCards();
+const api = new Api({
+  baseUrl: `${apiUserData.ariBaseUrl}/${apiUserData.userGroupNumber}`,
+  headers: {
+    authorization: apiUserData.userAuthorizationToken,
+    "Content-Type": apiUserData.apiContentType,
+  },
+});
+
+//отрисовка карточек
+api
+  .getInitialCards()
+  .then((cardsData) => {
+    section.renderItems(cardsData);
+  })
+  .catch((err) => console.log(err));
+
+api
+  .getUserInfo()
+  .then((user) => {
+    userInfo.setUserInfo(user["name"], user["about"]);
+    profileImage.src = user["avatar"];
+  })
+  .catch((err) => console.log(err));
 
 //валидация
 const validationConfig = {
@@ -71,10 +78,13 @@ const popupEditProfileEditButton = document.querySelector(
 const popupAddCart = new PopupWithForm({
   popupSelector: ".popup_type_card",
   submitFormCb: (formData) => {
-    api.addNewCard({
-      cardName: formData["add-card-name"],
-      cardLink: formData["add-card-url"],
-    });
+    api
+      .addNewCard({
+        cardName: formData["add-card-name"],
+        cardLink: formData["add-card-url"],
+      })
+      .then((newCardData) => { section.addItem(returnCard(newCardData))})
+      .catch((err) => console.log(err));
 
     popupAddCart.close();
   },
@@ -86,10 +96,15 @@ const popupEditForm = new PopupWithForm({
   popupSelector: ".popup_type_profile",
 
   submitFormCb: (formData) => {
-    api.editUserInfo({
-      newName: formData["edit-profile-name"],
-      newAbout: formData["edit-profile-description"],
-    });
+    api
+      .editUserInfo({
+        newName: formData["edit-profile-name"],
+        newAbout: formData["edit-profile-description"],
+      })
+      .then((user) => {
+        userInfo.setUserInfo(user["name"], user["about"]);
+      })
+      .catch((err) => console.log(err));
 
     popupEditForm.close();
   },

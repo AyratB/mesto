@@ -4,11 +4,9 @@ export class Api {
     cardsFolder: "cards",
   };
 
-  constructor({ baseUrl, headers }, cardRendererCb, setUserInfoCb) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this._cardRendererCb = cardRendererCb;
-    this._setUserInfoCb = setUserInfoCb;
   }
 
   getInitialCards() {
@@ -16,14 +14,10 @@ export class Api {
       headers: {
         authorization: this._headers.authorization,
       },
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .then((cards) => {
-        cards.forEach((card) => this._cardRendererCb(card));
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      if (res.ok) return res.json();
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
   getUserInfo() {
@@ -31,12 +25,9 @@ export class Api {
       headers: {
         authorization: this._headers.authorization,
       },
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .then((result) => this._setUserInfoCb(result))
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+    );
   }
 
   editUserInfo({ newName = "", newAbout = "" }) {
@@ -50,14 +41,9 @@ export class Api {
         name: newName,
         about: newAbout,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .then((result) => {
-        this._setUserInfoCb(result);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+    );
   }
 
   addNewCard({ cardName, cardLink }) {
@@ -71,13 +57,8 @@ export class Api {
         name: cardName,
         link: cardLink,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .then((newCardData) => {
-        this._cardRendererCb(newCardData);
-      })
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+    );
   }
 }
