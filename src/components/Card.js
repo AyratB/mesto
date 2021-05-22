@@ -7,6 +7,7 @@ export class Card {
     cardClassSelector: ".card",
     cardActiveHeartClass: "card__heart_active",
     cardHeartVoicesClassSelector: ".card__heart-voices",
+    hiddenButtonClass: "button_hidden",
   };
 
   constructor({
@@ -14,11 +15,15 @@ export class Card {
     handleCardClick,
     cardTemplateClassSelector,
     handleDeleteIconClick,
+    currentOwner
   }) {
+    
     this._cardData = cardData;
     this._handleCardClick = handleCardClick;
     this._cardTemplateClassSelector = cardTemplateClassSelector;
     this._handleDeleteIconClick = handleDeleteIconClick;
+    this._cardOwner = cardData.owner;
+    this._currentOwner = currentOwner;    
   }
 
   createCard = () => {
@@ -91,6 +96,11 @@ export class Card {
   };
 
   _setDeleteIconEventListeners = () => {
+
+    if(JSON.stringify(this._cardOwner) === JSON.stringify(this._currentOwner)){      
+      this._deleteIcon.classList.remove(Card.CardSelectors.hiddenButtonClass);
+    }    
+
     this._deleteIcon.addEventListener("click", () =>
       this._handleDeleteIconClick(this._cardItem)
     );

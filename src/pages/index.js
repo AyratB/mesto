@@ -12,6 +12,8 @@ import "../pages/index.css";
 
 const profileImage = document.querySelector(".profile__avatar");
 
+let currentUser = null;
+
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__name",
   profileDescriptionSelector: ".profile__description",
@@ -32,13 +34,13 @@ const api = new Api({
   },
 });
 
-Promise.all([api.getInitialCards(), api.getUserInfo()])
-  .then(([cardsData, user]) => {
-
-    section.renderItems(cardsData);
-
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([user, cardsData]) => {
+    currentUser = user;
     userInfo.setUserInfo(user["name"], user["about"]);
     profileImage.src = user["avatar"];
+
+    section.renderItems(cardsData);
   })
   .catch((err) => console.log(err));
 
@@ -75,7 +77,9 @@ const popupAddCart = new PopupWithForm({
         cardName: formData["add-card-name"],
         cardLink: formData["add-card-url"],
       })
-      .then((newCardData) => { section.addItem(returnCard(newCardData))})
+      .then((newCardData) => {
+        section.addItem(returnCard(newCardData));
+      })
       .catch((err) => console.log(err));
 
     popupAddCart.close();
@@ -124,29 +128,36 @@ let popupAskDeleteCard = null;
 
 function returnCard(data) {
   const cardItem = new Card({
-    cardData: data, 
-    handleCardClick: handleCardClick, 
-    cardTemplateClassSelector: "#card-template",  
-    handleDeleteIconClick: (cardItem) => {
-      
-      popupAskDeleteCard = new PopupWithForm({
-        popupSelector: ".popup_type_submit",
-        submitFormCb: () => {
-            
-            cardItem.remove();
-            
-            popupAskDeleteCard.close();
-        },      
-      });
-
-      popupAskDeleteCard.setEventListeners();
-
-      popupAskDeleteCard.open();
-    }  
+    cardData: data,
+    handleCardClick: handleCardClick,
+    cardTemplateClassSelector: "#card-template",
+    handleDeleteIconClick: () => handleDeleteIconClick(cardItem),
+    currentOwner: currentUser,
   });
 
   const card = cardItem.createCard();
   return card;
+}
+
+function handleDeleteIconClick(cardItem) {
+  
+  popupAskDeleteCard = new PopupWithForm({
+    popupSelector: ".popup_type_submit",
+    submitFormCb: () => {
+      api
+        .deleteCard({ cardId: data._id })
+        .then((res) => {
+          cardItem.remove();
+        })
+        .catch((err) => console.log(err));
+
+      popupAskDeleteCard.close();
+    },
+  });
+
+  popupAskDeleteCard.setEventListeners();
+
+  popupAskDeleteCard.open();
 }
 
 function handleAddNewCardButton() {

@@ -12,6 +12,7 @@
 @import url(../blocks/button/_type/button_type_close-popup.css);
 @import url(../blocks/button/_type/button_type_delete-card.css);
 @import url(../blocks/button/_inactive/button_inactive.css);
+@import url(../blocks/button/_hidden/button_hidden.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);
@@ -26,10 +27,7 @@
 @import url(../blocks/card/__heart/card__heart.css);
 @import url(../blocks/card/__heart/_active/card__heart_active.css);
 @import url(../blocks/card/__sign/card__sign.css);
-
 @import url(../blocks/card/__heart-container/card__heart-container.css);
-
-
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/page/__container/page__container.css);
