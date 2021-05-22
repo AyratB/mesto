@@ -15,15 +15,18 @@ export class Card {
     handleCardClick,
     cardTemplateClassSelector,
     handleDeleteIconClick,
-    currentOwner
+    currentOwner,
+    handlerLikeAdd,
+    handlerLikeRemove,
   }) {
-    
     this._cardData = cardData;
     this._handleCardClick = handleCardClick;
     this._cardTemplateClassSelector = cardTemplateClassSelector;
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._cardOwner = cardData.owner;
-    this._currentOwner = currentOwner;    
+    this._currentOwner = currentOwner;
+    this._handlerLikeAdd = handlerLikeAdd;
+    this._handlerLikeRemove = handlerLikeRemove;
   }
 
   createCard = () => {
@@ -54,7 +57,7 @@ export class Card {
     this._setCardData();
     this._setCardEventListeners();
 
-    this._countHeartVoices();
+    this.countHeartVoices(this._cardData.likes.length);
 
     return this._cardItem;
   };
@@ -77,8 +80,8 @@ export class Card {
     );
   };
 
-  _countHeartVoices = () => {
-    this._cardHeartVoices.textContent = this._cardData.likes.length;
+  countHeartVoices = (count) => {
+    this._cardHeartVoices.textContent = count;
   };
 
   _handleOpenPicture = (name, link) => this._handleCardClick(name, link);
@@ -90,16 +93,33 @@ export class Card {
   }
 
   _setLikeIconEventListeners = () => {
-    this._likeIcon.addEventListener("click", () =>
-      this._likeIcon.classList.toggle(Card.CardSelectors.cardActiveHeartClass)
-    );
+    this._likeIcon.addEventListener("click", () => {
+      if (
+        this._likeIcon.classList.contains(
+          Card.CardSelectors.cardActiveHeartClass
+        )
+      ) {
+        this._handlerLikeRemove();
+      } else {
+        this._handlerLikeAdd();
+      }
+    });
   };
 
-  _setDeleteIconEventListeners = () => {
+  addLike() {
+    this._likeIcon.classList.add(Card.CardSelectors.cardActiveHeartClass);
+  }
 
-    if(JSON.stringify(this._cardOwner) === JSON.stringify(this._currentOwner)){      
+  removeLike() {
+    this._likeIcon.classList.remove(Card.CardSelectors.cardActiveHeartClass);
+  }
+
+  _setDeleteIconEventListeners = () => {
+    if (
+      JSON.stringify(this._cardOwner) === JSON.stringify(this._currentOwner)
+    ) {
       this._deleteIcon.classList.remove(Card.CardSelectors.hiddenButtonClass);
-    }    
+    }
 
     this._deleteIcon.addEventListener("click", () =>
       this._handleDeleteIconClick(this._cardItem)

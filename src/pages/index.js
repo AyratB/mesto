@@ -133,6 +133,26 @@ function returnCard(data) {
     cardTemplateClassSelector: "#card-template",
     handleDeleteIconClick: () => handleDeleteIconClick(cardItem),
     currentOwner: currentUser,
+
+    handlerLikeAdd: () => {
+      api
+        .addLike({ cardId: data._id })
+        .then((res) => {
+          cardItem.addLike();
+          cardItem.countHeartVoices(res.likes.length);
+        })
+        .catch((err) => console.log(err));
+    },
+
+    handlerLikeRemove: () => {
+      api
+        .removeLike({ cardId: data._id })
+        .then((res) => {
+          cardItem.removeLike();
+          cardItem.countHeartVoices(res.likes.length);
+        })
+        .catch((err) => console.log(err));
+    },
   });
 
   const card = cardItem.createCard();
@@ -140,7 +160,6 @@ function returnCard(data) {
 }
 
 function handleDeleteIconClick(cardItem) {
-  
   popupAskDeleteCard = new PopupWithForm({
     popupSelector: ".popup_type_submit",
     submitFormCb: () => {
