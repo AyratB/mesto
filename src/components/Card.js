@@ -9,10 +9,16 @@ export class Card {
     cardHeartVoicesClassSelector: ".card__heart-voices",
   };
 
-  constructor(cardData, handleCardClick, cardTemplateClassSelector) {
+  constructor({
+    cardData,
+    handleCardClick,
+    cardTemplateClassSelector,
+    handleDeleteIconClick,
+  }) {
     this._cardData = cardData;
     this._handleCardClick = handleCardClick;
     this._cardTemplateClassSelector = cardTemplateClassSelector;
+    this._handleDeleteIconClick = handleDeleteIconClick;
   }
 
   createCard = () => {
@@ -43,7 +49,7 @@ export class Card {
     this._setCardData();
     this._setCardEventListeners();
 
-    this._countHEartVoices();
+    this._countHeartVoices();
 
     return this._cardItem;
   };
@@ -66,7 +72,7 @@ export class Card {
     );
   };
 
-  _countHEartVoices = () => {
+  _countHeartVoices = () => {
     this._cardHeartVoices.textContent = this._cardData.likes.length;
   };
 
@@ -85,6 +91,8 @@ export class Card {
   };
 
   _setDeleteIconEventListeners = () => {
-    this._deleteIcon.addEventListener("click", () => this._cardItem.remove());
+    this._deleteIcon.addEventListener("click", () =>
+      this._handleDeleteIconClick(this._cardItem)
+    );
   };
 }

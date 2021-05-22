@@ -10,7 +10,6 @@ import { Api } from "../components/Api.js";
 
 import "../pages/index.css";
 
-//константы
 const profileImage = document.querySelector(".profile__avatar");
 
 const userInfo = new UserInfo({
@@ -33,17 +32,11 @@ const api = new Api({
   },
 });
 
-//отрисовка карточек
-api
-  .getInitialCards()
-  .then((cardsData) => {
-    section.renderItems(cardsData);
-  })
-  .catch((err) => console.log(err));
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([cardsData, user]) => {
 
-api
-  .getUserInfo()
-  .then((user) => {
+    section.renderItems(cardsData);
+
     userInfo.setUserInfo(user["name"], user["about"]);
     profileImage.src = user["avatar"];
   })
@@ -68,7 +61,6 @@ const editProfileFormValidator = new FormValidator(
   validationConfig,
   document.forms.editProfile
 );
-//валидация
 
 const addNewCardButton = document.querySelector(".button_type_add-element");
 const popupEditProfileEditButton = document.querySelector(
@@ -128,8 +120,31 @@ addCardFormValidator.enableValidation();
 
 addNewCardButton.addEventListener("click", handleAddNewCardButton);
 
+let popupAskDeleteCard = null;
+
 function returnCard(data) {
-  const cardItem = new Card(data, handleCardClick, "#card-template");
+  const cardItem = new Card({
+    cardData: data, 
+    handleCardClick: handleCardClick, 
+    cardTemplateClassSelector: "#card-template",  
+    handleDeleteIconClick: (cardItem) => {
+      
+      popupAskDeleteCard = new PopupWithForm({
+        popupSelector: ".popup_type_submit",
+        submitFormCb: () => {
+            
+            cardItem.remove();
+            
+            popupAskDeleteCard.close();
+        },      
+      });
+
+      popupAskDeleteCard.setEventListeners();
+
+      popupAskDeleteCard.open();
+    }  
+  });
+
   const card = cardItem.createCard();
   return card;
 }
