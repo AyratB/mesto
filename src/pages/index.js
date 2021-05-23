@@ -81,6 +81,7 @@ const buttonChangeAvatarProfile = document.querySelector(
 const popupAddCart = new PopupWithForm({
   popupSelector: ".popup_type_card",
   submitFormCb: (formData) => {
+    popupAddCart.buttonSubmit.textContent = "Сохранение...";
     api
       .addNewCard({
         cardName: formData["add-card-name"],
@@ -89,9 +90,11 @@ const popupAddCart = new PopupWithForm({
       .then((newCardData) => {
         section.addItem(returnCard(newCardData));
       })
-      .catch((err) => console.log(err));
-
-    popupAddCart.close();
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupAddCart.buttonSubmit.textContent = "Создать";
+        popupAddCart.close();
+      });
   },
 });
 
@@ -99,6 +102,8 @@ const popupEditForm = new PopupWithForm({
   popupSelector: ".popup_type_profile",
 
   submitFormCb: (formData) => {
+    popupEditForm.buttonSubmit.textContent = "Сохранение...";
+
     api
       .editUserInfo({
         newName: formData["edit-profile-name"],
@@ -107,9 +112,11 @@ const popupEditForm = new PopupWithForm({
       .then((user) => {
         userInfo.setUserInfo(user["name"], user["about"]);
       })
-      .catch((err) => console.log(err));
-
-    popupEditForm.close();
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupEditForm.buttonSubmit.textContent = "Сохранить";
+        popupEditForm.close();
+      });
   },
 });
 
@@ -119,14 +126,18 @@ const popupChangeAvatar = new PopupWithForm({
   popupSelector: ".popup_type_avatar",
 
   submitFormCb: (formData) => {
+    popupChangeAvatar.buttonSubmit.textContent = "Сохранение...";
+
     api
       .changeAvatar({ newAvatarLink: formData["update-avatar-url"] })
       .then((data) => {
         profileAvatar.src = data.avatar;
       })
-      .catch((err) => console.log(err));
-
-    popupChangeAvatar.close();
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupChangeAvatar.buttonSubmit.textContent = "Сохранить";
+        popupChangeAvatar.close();
+      });
   },
 });
 
@@ -189,6 +200,7 @@ profileAvatar.addEventListener(
   makeButtonChangeAvatarProfileVisible
 );
 
+//функции
 function makeButtonChangeAvatarProfileVisible() {
   buttonChangeAvatarProfile.style.visibility = "visible";
   buttonChangeAvatarProfile.style.opacity = "1";
@@ -245,13 +257,13 @@ function handleDeleteIconClick(cardItem) {
     popupSelector: ".popup_type_submit",
     submitFormCb: () => {
       api
-        .deleteCard({ cardId: data._id })
+        .deleteCard({ cardId: cardItem.getCardId() })
         .then((res) => {
+          debugger;
           cardItem.remove();
         })
-        .catch((err) => console.log(err));
-
-      popupAskDeleteCard.close();
+        .catch((err) => console.log(err))
+        .finally(() => popupAskDeleteCard.close());
     },
   });
 

@@ -58,6 +58,7 @@ export class Api {
   }
 
   deleteCard({ cardId }) {
+    debugger;
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: {

@@ -70,6 +70,8 @@ export class Card {
     return cardTemplate.cloneNode(true);
   }
 
+  getCardId = () => this._cardData._id;
+
   _setCardData() {
     this._cardDescription.textContent = this._cardData.name;
   }
@@ -125,4 +127,6 @@ export class Card {
       this._handleDeleteIconClick(this._cardItem)
     );
   };
+
+  remove = () => this._cardItem.remove();
 }

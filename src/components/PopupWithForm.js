@@ -4,6 +4,7 @@ export class PopupWithForm extends Popup {
   static popupWithFormConfig = {
     formClassSelector: ".form",
     formInputClassSelector: ".form__input",
+    formSubmitButtonClassSelector: ".button_type_save-form",
   };
 
   constructor({ popupSelector, submitFormCb }) {
@@ -11,6 +12,9 @@ export class PopupWithForm extends Popup {
     this._submitFormCb = submitFormCb;
     this.form = this._popup.querySelector(
       PopupWithForm.popupWithFormConfig.formClassSelector
+    );
+    this.buttonSubmit = this.form.querySelector(
+      PopupWithForm.popupWithFormConfig.formSubmitButtonClassSelector
     );
   }
 
