@@ -16,7 +16,11 @@
                 <main class="main page__container-item page__container-item_stretch_narrow">
                     <section class="profile">
                         <div class="profile__avatar-container">
-                            <img class="profile__avatar" src="" alt="Аватар пользователя">                                            
+                            <div class="profile__avatar-box">
+                                <img class="profile__avatar" src="" alt="Аватар пользователя">
+                                <button type="button" class="button button_type_change-avatar" aria-label="Кнопка редактирования аватара"></button>
+                            </div>
+                                                                       
                             <div class="profile__info">
                                 <h1 class="profile__name"></h1>
                                 <button type="button" class="button button_type_edit-profile" aria-label="Кнопка редактирования профиля"></button>
@@ -89,6 +93,22 @@
                     <button type="button" class="button button_type_close-popup" aria-label="Кнопка закрытия попапа уточнения удаления"></button>
                 </div>
             </article>
+
+            <article class="popup popup_type_avatar">
+                <div class="popup__overlay"></div>
+                <div class="popup__container">
+                    <h2 class="popup__title">Обновить аватар</h2>
+                    <form class="form" name="updateAvatar" novalidate>                        
+                        <section class="form__section">
+                            <input type="url" class="form__input" name="update-avatar-url" id="update-avatar-url" placeholder="Ссылка на аватар" required >
+                            <span class="form__span-error" id="update-avatar-url-error"></span>
+                        </section>
+                        <button type="submit" class="button button_type_save-form">Сохранить</button>
+                    </form>
+                    <button type="button" class="button button_type_close-popup" aria-label="Кнопка закрытия попапа изменения аватара"></button>
+                </div>
+            </article>
+            
         </div>
         <template id="card-template">
             <li class="card">
