@@ -9,10 +9,7 @@ export class Api {
       headers: {
         authorization: this._headers.authorization,
       },
-    }).then((res) => {
-      if (res.ok) return res.json();
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    }).then((res) => this._getResponseData(res));
   }
 
   getUserInfo() {
@@ -20,9 +17,7 @@ export class Api {
       headers: {
         authorization: this._headers.authorization,
       },
-    }).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    }).then((res) => this._getResponseData(res));
   }
 
   editUserInfo({ newName = "", newAbout = "" }) {
@@ -36,9 +31,7 @@ export class Api {
         name: newName,
         about: newAbout,
       }),
-    }).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    }).then((res) => this._getResponseData(res));
   }
 
   addNewCard({ cardName, cardLink }) {
@@ -52,9 +45,7 @@ export class Api {
         name: cardName,
         link: cardLink,
       }),
-    }).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    }).then((res) => this._getResponseData(res));
   }
 
   deleteCard({ cardId }) {
@@ -63,9 +54,7 @@ export class Api {
       headers: {
         authorization: this._headers.authorization,
       },
-    }).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    }).then((res) => this._getResponseData(res));
   }
 
   addLike({ cardId }) {
@@ -74,9 +63,7 @@ export class Api {
       headers: {
         authorization: this._headers.authorization,
       },
-    }).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    }).then((res) => this._getResponseData(res));
   }
 
   removeLike({ cardId }) {
@@ -85,9 +72,7 @@ export class Api {
       headers: {
         authorization: this._headers.authorization,
       },
-    }).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    }).then((res) => this._getResponseData(res));
   }
 
   changeAvatar({ newAvatarLink }) {
@@ -100,8 +85,13 @@ export class Api {
       body: JSON.stringify({
         avatar: newAvatarLink,
       }),
-    }).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-    );
+    }).then((res) => this._getResponseData(res));
+  }
+
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
   }
 }

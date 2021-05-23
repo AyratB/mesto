@@ -1,4 +1,4 @@
-const KEY_TO_CLOSE = "Escape";
+import { KEY_TO_CLOSE } from "../utils/constants.js";
 
 export class Popup {
   static popupConfig = {
@@ -21,7 +21,7 @@ export class Popup {
   open() {
     this._popup.classList.add(Popup.popupConfig.openedClass);
 
-    this._popupOverlay.addEventListener("click", this._handlePopupOverlayClick);
+    this._popupOverlay.addEventListener("mousedown", this._handlePopupOverlayClick);
 
     window.addEventListener("keyup", this._handleEscClose);
   }
@@ -31,7 +31,7 @@ export class Popup {
   close() {
     this._popup.classList.remove(Popup.popupConfig.openedClass);
     this._popupOverlay.removeEventListener(
-      "click",
+      "mousedown",
       this._handlePopupOverlayClick
     );
 

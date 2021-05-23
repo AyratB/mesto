@@ -92,6 +92,17 @@ export class Card {
     this._setCardImageEventListeners();
     this._setLikeIconEventListeners();
     this._setDeleteIconEventListeners();
+    this._setOwnerLikes();
+  }
+
+  _setOwnerLikes() {
+    if (
+      this._cardData.likes.some(
+        (liker) => JSON.stringify(liker) === JSON.stringify(this._currentOwner)
+      )
+    ) {
+      this.addLike();
+    }
   }
 
   _setLikeIconEventListeners = () => {
@@ -128,5 +139,8 @@ export class Card {
     );
   };
 
-  remove = () => this._cardItem.remove();
+  remove = () => {
+    this._cardItem.remove();
+    this._cardItem = null;
+  };
 }

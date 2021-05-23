@@ -81,7 +81,7 @@ const buttonChangeAvatarProfile = document.querySelector(
 const popupAddCart = new PopupWithForm({
   popupSelector: ".popup_type_card",
   submitFormCb: (formData) => {
-    popupAddCart.buttonSubmit.textContent = "Сохранение...";
+    changeButtonTextWhenDoing(popupAddCart.buttonSubmit);
     api
       .addNewCard({
         cardName: formData["add-card-name"],
@@ -89,11 +89,11 @@ const popupAddCart = new PopupWithForm({
       })
       .then((newCardData) => {
         section.addItem(returnCard(newCardData));
+        popupAddCart.close();
       })
       .catch((err) => console.log(err))
       .finally(() => {
         popupAddCart.buttonSubmit.textContent = "Создать";
-        popupAddCart.close();
       });
   },
 });
@@ -102,7 +102,7 @@ const popupEditForm = new PopupWithForm({
   popupSelector: ".popup_type_profile",
 
   submitFormCb: (formData) => {
-    popupEditForm.buttonSubmit.textContent = "Сохранение...";
+    changeButtonTextWhenDoing(popupEditForm.buttonSubmit);
 
     api
       .editUserInfo({
@@ -111,11 +111,11 @@ const popupEditForm = new PopupWithForm({
       })
       .then((user) => {
         userInfo.setUserInfo(user["name"], user["about"]);
+        popupEditForm.close();
       })
       .catch((err) => console.log(err))
       .finally(() => {
         popupEditForm.buttonSubmit.textContent = "Сохранить";
-        popupEditForm.close();
       });
   },
 });
@@ -126,17 +126,17 @@ const popupChangeAvatar = new PopupWithForm({
   popupSelector: ".popup_type_avatar",
 
   submitFormCb: (formData) => {
-    popupChangeAvatar.buttonSubmit.textContent = "Сохранение...";
+    changeButtonTextWhenDoing(popupChangeAvatar.buttonSubmit);
 
     api
       .changeAvatar({ newAvatarLink: formData["update-avatar-url"] })
       .then((data) => {
         profileAvatar.src = data.avatar;
+        popupChangeAvatar.close();
       })
       .catch((err) => console.log(err))
       .finally(() => {
         popupChangeAvatar.buttonSubmit.textContent = "Сохранить";
-        popupChangeAvatar.close();
       });
   },
 });
@@ -161,6 +161,10 @@ function makeButtonChangeAvatarProfileUnvisible() {
     "mouseout",
     makeButtonChangeAvatarProfileUnvisible
   );
+}
+
+function changeButtonTextWhenDoing(button) {
+  button.textContent = "Сохранение...";
 }
 
 function returnCard(data) {
@@ -203,9 +207,9 @@ function handleDeleteIconClick(cardItem) {
         .deleteCard({ cardId: cardItem.getCardId() })
         .then(() => {
           cardItem.remove();
+          popupAskDeleteCard.close();
         })
-        .catch((err) => console.log(err))
-        .finally(() => popupAskDeleteCard.close());
+        .catch((err) => console.log(err));
     },
   });
 
@@ -216,7 +220,7 @@ function handleDeleteIconClick(cardItem) {
 function handleAddNewCardButton() {
   addCardFormValidator.clearAllFormErrors();
   addCardFormValidator.makeButtonDisable();
-  popupAddCart.open();  
+  popupAddCart.open();
 }
 
 function getProfileData(userInfo) {
@@ -246,7 +250,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     userInfo.setUserInfo(user["name"], user["about"]);
     profileAvatar.src = user["avatar"];
 
-    section.renderItems(cardsData);
+    section.renderItems(cardsData.reverse());
   })
   .catch((err) => console.log(err));
 
@@ -269,7 +273,7 @@ addNewCardButton.addEventListener("click", handleAddNewCardButton);
 buttonChangeAvatarProfile.addEventListener("click", () => {
   changeAvatarFormValidator.clearAllFormErrors();
   changeAvatarFormValidator.makeButtonDisable();
-  popupChangeAvatar.open();  
+  popupChangeAvatar.open();
 });
 
 popupEditProfileEditButton.addEventListener("click", () => {
@@ -280,7 +284,7 @@ popupEditProfileEditButton.addEventListener("click", () => {
 
   popupEditForm.open();
 
-  dispatchInputEvent(popupEditForm.form);  
+  dispatchInputEvent(popupEditForm.form);
 });
 
 profileAvatar.addEventListener(
