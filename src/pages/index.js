@@ -144,62 +144,6 @@ const popupChangeAvatar = new PopupWithForm({
 let popupAskDeleteCard = null;
 //попапы
 
-//функционал
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([user, cardsData]) => {
-    currentUser = user;
-    userInfo.setUserInfo(user["name"], user["about"]);
-    profileAvatar.src = user["avatar"];
-
-    section.renderItems(cardsData);
-  })
-  .catch((err) => console.log(err));
-
-//активация попапов
-popupAddCart.setEventListeners();
-popupEditForm.setEventListeners();
-popupZoom.setEventListeners();
-popupChangeAvatar.setEventListeners();
-//активация попапов
-
-//валидация форм
-addCardFormValidator.enableValidation();
-editProfileFormValidator.enableValidation();
-changeAvatarFormValidator.enableValidation();
-//валидация форм
-
-//обработчики событий кнопок
-
-addNewCardButton.addEventListener("click", handleAddNewCardButton);
-
-buttonChangeAvatarProfile.addEventListener("click", () => {
-  changeAvatarFormValidator.clearAllFormErrors();
-
-  popupChangeAvatar.open();
-
-  changeAvatarFormValidator.makeButtonDisable();
-});
-
-popupEditProfileEditButton.addEventListener("click", () => {
-  editProfileFormValidator.clearAllFormErrors();
-
-  getProfileData(userInfo);
-
-  popupEditForm.open();
-
-  dispatchInputEvent(popupEditForm.form);
-
-  editProfileFormValidator.makeButtonDisable();
-});
-
-//обработчики событий кнопок
-
-//остальные обработчики
-profileAvatar.addEventListener(
-  "mouseover",
-  makeButtonChangeAvatarProfileVisible
-);
-
 //функции
 function makeButtonChangeAvatarProfileVisible() {
   buttonChangeAvatarProfile.style.visibility = "visible";
@@ -248,8 +192,7 @@ function returnCard(data) {
     },
   });
 
-  const card = cardItem.createCard();
-  return card;
+  return cardItem.createCard();
 }
 
 function handleDeleteIconClick(cardItem) {
@@ -258,8 +201,7 @@ function handleDeleteIconClick(cardItem) {
     submitFormCb: () => {
       api
         .deleteCard({ cardId: cardItem.getCardId() })
-        .then((res) => {
-          debugger;
+        .then(() => {
           cardItem.remove();
         })
         .catch((err) => console.log(err))
@@ -268,16 +210,13 @@ function handleDeleteIconClick(cardItem) {
   });
 
   popupAskDeleteCard.setEventListeners();
-
   popupAskDeleteCard.open();
 }
 
 function handleAddNewCardButton() {
   addCardFormValidator.clearAllFormErrors();
-
-  popupAddCart.open();
-
   addCardFormValidator.makeButtonDisable();
+  popupAddCart.open();  
 }
 
 function getProfileData(userInfo) {
@@ -299,3 +238,52 @@ function dispatchInputEvent(form) {
 function handleCardClick(name, link) {
   popupZoom.open(name, link);
 }
+
+//функционал
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([user, cardsData]) => {
+    currentUser = user;
+    userInfo.setUserInfo(user["name"], user["about"]);
+    profileAvatar.src = user["avatar"];
+
+    section.renderItems(cardsData);
+  })
+  .catch((err) => console.log(err));
+
+//активация попапов
+popupAddCart.setEventListeners();
+popupEditForm.setEventListeners();
+popupZoom.setEventListeners();
+popupChangeAvatar.setEventListeners();
+//активация попапов
+
+//валидация форм
+addCardFormValidator.enableValidation();
+editProfileFormValidator.enableValidation();
+changeAvatarFormValidator.enableValidation();
+//валидация форм
+
+//обработчики событий кнопок
+addNewCardButton.addEventListener("click", handleAddNewCardButton);
+
+buttonChangeAvatarProfile.addEventListener("click", () => {
+  changeAvatarFormValidator.clearAllFormErrors();
+  changeAvatarFormValidator.makeButtonDisable();
+  popupChangeAvatar.open();  
+});
+
+popupEditProfileEditButton.addEventListener("click", () => {
+  editProfileFormValidator.clearAllFormErrors();
+  editProfileFormValidator.makeButtonDisable();
+
+  getProfileData(userInfo);
+
+  popupEditForm.open();
+
+  dispatchInputEvent(popupEditForm.form);  
+});
+
+profileAvatar.addEventListener(
+  "mouseover",
+  makeButtonChangeAvatarProfileVisible
+);

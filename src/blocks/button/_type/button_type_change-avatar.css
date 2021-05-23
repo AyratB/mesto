@@ -4,7 +4,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    visibility: hidden;    
+    visibility: hidden;
     background: rgba(0, 0, 0, 0.8);
     background-image: url("./../../../images/edit-pencil.svg");
     background-size: 26px 26px;
@@ -17,7 +17,7 @@
 }
 
 @media screen and (max-width: 1279px){
-    .button_type_change-avatar{        
+    .button_type_change-avatar{
         background-size: 23px 23px;
     }
 }
@@ -35,7 +35,7 @@
 }
 
 @media screen and (max-width: 424px){
-    .button_type_change-avatar{        
+    .button_type_change-avatar{
         background-size: 13px 13px;
     }
 }
